@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Script/Menu/Main Menu.gd" type="Script" id=6]
+
+[sub_resource type="Environment" id=1]
+background_mode = 1
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0.278431, 0.168627, 0.168627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Create Character" type="Button" parent="."]
+margin_left = 376.0
+margin_top = 536.0
+margin_right = 648.0
+margin_bottom = 560.0
+text = "Create Character"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Play" type="Button" parent="."]
+margin_left = 352.0
+margin_top = 432.0
+margin_right = 672.0
+margin_bottom = 496.0
+text = "Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select Character" type="OptionButton" parent="."]
+margin_left = 368.0
+margin_top = 504.0
+margin_right = 656.0
+margin_bottom = 524.0
+text = "Selected caracter"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 512, 300 )
+current = true
+
+[connection signal="pressed" from="Create Character" to="." method="_on_Create_Character_pressed"]
+[connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
+[connection signal="item_selected" from="Select Character" to="." method="_on_Select_Character_item_selected"]
