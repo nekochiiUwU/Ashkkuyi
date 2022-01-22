@@ -40,7 +40,7 @@ func _physics_process(delta):
 			path_node += 1
 		else:
 			move_and_slide(dir.normalized() * speed, Vector3.UP)
-		
+
 func move_to(pos):
 	path = nav.get_simple_path(global_transform.origin, pos)
 	path_node = 0

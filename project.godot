@@ -22,10 +22,15 @@ _global_script_class_icons={
 
 config/name="Ashkkuyi"
 run/main_scene="res://Scenes/Game/Game.tscn"
-config/icon="res://icon.png"
+config/icon="res://Assets/Visual/Entities/Player/Weapons/0.png"
+
+[audio]
+
+default_bus_layout="res://Assets/Ressources/default_bus_layout.tres"
 
 [debug]
 
+settings/fps/force_fps=60
 settings/stdout/print_fps=true
 
 [display]

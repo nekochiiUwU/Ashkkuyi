@@ -1,14 +1,16 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Assets/Visual/Global/Cursor.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Pants/0.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Shirt/0.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Shoes/0.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Face/1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Pants/1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Shirt/1.png" type="Texture" id=4]
 [ext_resource path="res://Script/Game/Entities/Player/Player.gd" type="Script" id=5]
-[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Face/0.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Hairs/0.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Shoes/1.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Hairs/1.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Game/Entities/Player/Weapons/0.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/Visual/Entities/Player/Parts/Skin/0.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Spe F/0.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Spe B/0.png" type="Texture" id=11]
 
 [sub_resource type="CapsuleShape" id=10]
 radius = 0.3
@@ -18,7 +20,7 @@ height = 0.75
 resource_name = "Crouch"
 length = 0.5
 loop = true
-step = 0.05
+step = 0.25
 tracks/0/type = "value"
 tracks/0/path = NodePath("Hairs:frame")
 tracks/0/interp = 1
@@ -26,10 +28,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 9, 10, 10 ]
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 9, 10 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Head:frame")
@@ -86,6 +88,30 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 9, 10 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Spe B:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 9, 10 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Spe F:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
 "times": PoolRealArray( 0, 0.25 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
@@ -102,10 +128,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 11, 12, 13, 13 ]
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 12, 13 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Head:frame")
@@ -162,6 +188,30 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 12, 13 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Spe F:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 12, 13 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Spe B:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
@@ -178,10 +228,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 17, 18, 19, 19 ]
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 17, 18, 19 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Head:frame")
@@ -238,6 +288,30 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 17, 18, 19 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Spe B:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 17, 18, 19 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Spe F:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
@@ -254,10 +328,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 14, 15, 16, 16 ]
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 14, 15, 16 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Head:frame")
@@ -314,6 +388,30 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 14, 15, 16 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Spe B:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 14, 15, 16 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Spe F:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
@@ -346,6 +444,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 13, 0 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Spe F:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Spe B:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
 
 [sub_resource type="Animation" id=6]
 length = 0.5
@@ -357,10 +479,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 4, 5, 6, 7, 8, 8 ]
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7, 8 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Head:frame")
@@ -417,6 +539,30 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7, 8 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Spe B:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7, 8 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Spe F:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
@@ -433,10 +579,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0, 1, 2, 3, 3 ]
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Head:frame")
@@ -493,6 +639,30 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Spe F:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Spe B:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
@@ -524,14 +694,22 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.4
 shape = SubResource( 10 )
 
 [node name="CameraPos" type="Spatial" parent="Player"]
-transform = Transform( -0.707107, 0.353553, -0.612372, 0, 0.866026, 0.5, 0.707107, 0.353553, -0.612372, -5, 1, 5 )
+transform = Transform( -0.707107, 0.353553, -0.612372, 0, 0.866026, 0.5, 0.707107, 0.353553, -0.612372, -20, 17.5, -20 )
 
 [node name="Visual" type="Spatial" parent="Player"]
 transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
 
+[node name="Spe B" type="Sprite3D" parent="Player/Visual"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.005 )
+modulate = Color( 0.129412, 0.588235, 0.788235, 1 )
+pixel_size = 0.04
+shaded = true
+texture = ExtResource( 11 )
+hframes = 20
+
 [node name="Skin" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00400007 )
-modulate = Color( 0.129412, 0.588235, 0.788235, 1 )
+modulate = Color( 0.027451, 0.529412, 0, 1 )
 pixel_size = 0.04
 shaded = true
 texture = ExtResource( 9 )
@@ -539,39 +717,39 @@ hframes = 20
 frame = 13
 
 [node name="Shoes" type="Sprite3D" parent="Player/Visual"]
-modulate = Color( 0.145098, 0.0588235, 0.0313726, 1 )
-pixel_size = 0.04
-shaded = true
-texture = ExtResource( 4 )
-hframes = 20
-frame = 9
-
-[node name="Pants" type="Sprite3D" parent="Player/Visual"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00100005 )
-modulate = Color( 0.207843, 0.2, 0.47451, 1 )
-pixel_size = 0.04
-shaded = true
-texture = ExtResource( 2 )
-hframes = 20
-frame = 9
-
-[node name="Shirt" type="Sprite3D" parent="Player/Visual"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00199997 )
-modulate = Color( 0.109804, 0.270588, 0.0823529, 1 )
-pixel_size = 0.04
-shaded = true
-texture = ExtResource( 3 )
-hframes = 20
-frame = 9
-
-[node name="Head" type="Sprite3D" parent="Player/Visual"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00300014 )
-modulate = Color( 0.913725, 0.819608, 0.654902, 1 )
+modulate = Color( 0.172549, 0.176471, 0.00392157, 1 )
 pixel_size = 0.04
 shaded = true
 texture = ExtResource( 6 )
 hframes = 20
-frame = 9
+frame = 3
+
+[node name="Pants" type="Sprite3D" parent="Player/Visual"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00100005 )
+modulate = Color( 0.160784, 0.388235, 0.282353, 1 )
+pixel_size = 0.04
+shaded = true
+texture = ExtResource( 3 )
+hframes = 20
+frame = 3
+
+[node name="Shirt" type="Sprite3D" parent="Player/Visual"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00199997 )
+modulate = Color( 0.239216, 0.105882, 0.0588235, 1 )
+pixel_size = 0.04
+shaded = true
+texture = ExtResource( 4 )
+hframes = 20
+frame = 3
+
+[node name="Head" type="Sprite3D" parent="Player/Visual"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00300014 )
+modulate = Color( 0.282353, 0, 0, 1 )
+pixel_size = 0.04
+shaded = true
+texture = ExtResource( 2 )
+hframes = 20
+frame = 3
 
 [node name="Hairs" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.004 )
@@ -580,7 +758,15 @@ pixel_size = 0.04
 shaded = true
 texture = ExtResource( 7 )
 hframes = 20
-frame = 9
+frame = 3
+
+[node name="Spe F" type="Sprite3D" parent="Player/Visual"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.005 )
+modulate = Color( 0.129412, 0.588235, 0.788235, 1 )
+pixel_size = 0.04
+shaded = true
+texture = ExtResource( 10 )
+hframes = 20
 
 [node name="Animation Player" type="AnimationPlayer" parent="Player/Visual"]
 autoplay = "Stand"
@@ -594,8 +780,13 @@ anims/Stand = SubResource( 7 )
 
 [node name="Test Shoot Weapon" parent="Player" instance=ExtResource( 8 )]
 
+[node name="Listener" type="Listener" parent="Player"]
+transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
+current = true
+
 [node name="Camera" type="InterpolatedCamera" parent="."]
 transform = Transform( -0.707107, 0.270598, -0.653282, 0, 0.92388, 0.382683, 0.707107, 0.270598, -0.653282, -2, 2, -2 )
+visible = false
 projection = 1
 current = true
 size = 10.0
