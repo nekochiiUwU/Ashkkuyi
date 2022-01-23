@@ -62,6 +62,44 @@ border_color = Color( 0, 0, 0, 1 )
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.00392157, 0, 0, 0.25098 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 0.501961 )
+corner_radius_top_left = 211
+shadow_color = Color( 0, 0, 0, 0.25098 )
+shadow_size = 1
+shadow_offset = Vector2( 4, 4 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.00392157, 0, 0, 0.501961 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 0.501961 )
+corner_radius_top_left = 128
+shadow_color = Color( 0, 0, 0, 0.25098 )
+shadow_size = 1
+shadow_offset = Vector2( 4, 4 )
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.00392157, 0, 0, 0.25098 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 0.501961 )
+corner_radius_top_left = 211
+shadow_color = Color( 0, 0, 0, 0.12549 )
+shadow_size = 1
+shadow_offset = Vector2( 4, 4 )
+
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
 length = 0.8
@@ -191,44 +229,6 @@ tracks/1/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 0.00392157, 0, 0, 0.25098 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 0.501961 )
-corner_radius_top_left = 211
-shadow_color = Color( 0, 0, 0, 0.25098 )
-shadow_size = 1
-shadow_offset = Vector2( 4, 4 )
-
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.00392157, 0, 0, 0.501961 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 0.501961 )
-corner_radius_top_left = 128
-shadow_color = Color( 0, 0, 0, 0.25098 )
-shadow_size = 1
-shadow_offset = Vector2( 4, 4 )
-
-[sub_resource type="StyleBoxEmpty" id=10]
-
-[sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0.00392157, 0, 0, 0.25098 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0, 0, 0, 0.501961 )
-corner_radius_top_left = 211
-shadow_color = Color( 0, 0, 0, 0.12549 )
-shadow_size = 1
-shadow_offset = Vector2( 4, 4 )
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -259,10 +259,10 @@ __meta__ = {
 }
 
 [node name="ColorPicker" type="ColorPicker" parent="UI"]
-margin_left = 684.0
-margin_top = 44.0
-margin_right = 1004.0
-margin_bottom = 482.0
+margin_left = 688.0
+margin_top = 48.0
+margin_right = 1008.0
+margin_bottom = 486.0
 theme = SubResource( 6 )
 edit_alpha = false
 __meta__ = {
@@ -591,12 +591,27 @@ margin_bottom = 576.0
 rect_clip_content = true
 custom_fonts/font = SubResource( 15 )
 custom_styles/normal = SubResource( 14 )
+text = "Name"
 fold_gutter = true
 wrap_enabled = true
 caret_blink = true
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
+}
+
+[node name="End" type="Button" parent="UI"]
+margin_left = 768.0
+margin_top = 568.0
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_styles/hover = SubResource( 12 )
+custom_styles/pressed = SubResource( 13 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
+text = "Save Data and go on Main Menu"
+__meta__ = {
+"_edit_use_anchors_": false
 }
 
 [node name="Player" type="Node2D" parent="."]
@@ -658,20 +673,6 @@ hframes = 20
 anims/Idle = SubResource( 1 )
 anims/RESET = SubResource( 9 )
 
-[node name="Button" type="Button" parent="."]
-margin_left = 768.0
-margin_top = 568.0
-margin_right = 1024.0
-margin_bottom = 600.0
-custom_styles/hover = SubResource( 12 )
-custom_styles/pressed = SubResource( 13 )
-custom_styles/focus = SubResource( 10 )
-custom_styles/normal = SubResource( 11 )
-text = "Save Data and go on Main Menu"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [connection signal="color_changed" from="UI/ColorPicker" to="." method="_on_ColorPicker_color_changed"]
 [connection signal="pressed" from="UI/Spe B" to="." method="_on_Button_pressed" binds= [ "Spe B", 0 ]]
 [connection signal="pressed" from="UI/Spe B/ButtonR" to="." method="_on_Button_pressed" binds= [ "Spe B", 1 ]]
@@ -698,3 +699,4 @@ __meta__ = {
 [connection signal="pressed" from="UI/Spe F/ButtonR" to="." method="_on_Button_pressed" binds= [ "Spe F", 1 ]]
 [connection signal="pressed" from="UI/Spe F/ButtonL" to="." method="_on_Button_pressed" binds= [ "Spe F", -1 ]]
 [connection signal="text_changed" from="UI/TextEdit" to="." method="_on_TextEdit_text_changed"]
+[connection signal="pressed" from="UI/End" to="." method="_on_End_pressed"]
