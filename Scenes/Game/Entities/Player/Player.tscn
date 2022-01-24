@@ -9,8 +9,8 @@
 [ext_resource path="res://Assets/Visual/Entities/Player/Parts/Hairs/1.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Game/Entities/Player/Weapons/0.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/Visual/Entities/Player/Parts/Skin/0.png" type="Texture" id=9]
-[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Spe F/0.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Spe B/0.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Spe F/1.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Spe B/1.png" type="Texture" id=11]
 
 [sub_resource type="CapsuleShape" id=10]
 radius = 0.3
@@ -701,7 +701,7 @@ transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107,
 
 [node name="Spe B" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.005 )
-modulate = Color( 0.129412, 0.588235, 0.788235, 1 )
+modulate = Color( 0.25098, 0.12549, 0, 1 )
 pixel_size = 0.04
 shaded = true
 texture = ExtResource( 11 )
@@ -709,7 +709,7 @@ hframes = 20
 
 [node name="Skin" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00400007 )
-modulate = Color( 0.027451, 0.529412, 0, 1 )
+modulate = Color( 0.25098, 0.12549, 0, 1 )
 pixel_size = 0.04
 shaded = true
 texture = ExtResource( 9 )
@@ -726,7 +726,7 @@ frame = 3
 
 [node name="Pants" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00100005 )
-modulate = Color( 0.160784, 0.388235, 0.282353, 1 )
+modulate = Color( 0.737255, 0.529412, 0.403922, 1 )
 pixel_size = 0.04
 shaded = true
 texture = ExtResource( 3 )
@@ -735,7 +735,7 @@ frame = 3
 
 [node name="Shirt" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00199997 )
-modulate = Color( 0.239216, 0.105882, 0.0588235, 1 )
+modulate = Color( 0.741176, 0.407843, 0.227451, 1 )
 pixel_size = 0.04
 shaded = true
 texture = ExtResource( 4 )
@@ -744,7 +744,7 @@ frame = 3
 
 [node name="Head" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00300014 )
-modulate = Color( 0.282353, 0, 0, 1 )
+modulate = Color( 1, 0.937255, 0, 1 )
 pixel_size = 0.04
 shaded = true
 texture = ExtResource( 2 )
@@ -753,7 +753,7 @@ frame = 3
 
 [node name="Hairs" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.004 )
-modulate = Color( 0.00784314, 1, 1, 1 )
+modulate = Color( 0.25098, 0.12549, 0, 1 )
 pixel_size = 0.04
 shaded = true
 texture = ExtResource( 7 )
@@ -762,7 +762,7 @@ frame = 3
 
 [node name="Spe F" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.005 )
-modulate = Color( 0.129412, 0.588235, 0.788235, 1 )
+modulate = Color( 0.25098, 0.12549, 0, 1 )
 pixel_size = 0.04
 shaded = true
 texture = ExtResource( 10 )
