@@ -1,0 +1,58 @@
+Name:
+Nakoshi
+Parts:
+Spe B:
+1
+ff2e1f32
+Skin:
+0
+ffffdeca
+Shoes:
+0
+ffffffff
+Pants:
+1
+ffffffff
+Shirt:
+1
+ffed8eca
+Face:
+1
+ff5d5cef
+Hairs:
+1
+fffffc27
+Spe F:
+0
+ffffffff
+Pos:
+Spawn
+Stuff:
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+Stats:
+0, 0, 0, 0, 0, 0
+RangedWpn:
+0, 0, 0, 0, 0
+EldrichKnowledge:
+0, 0, 0, 0, 0
+MeleeWpn:
+0, 0, 0, 0, 0
+Movements:
+0, 0, 0
+Status:
+0, 0, 0, 0, 0
+State:

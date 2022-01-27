@@ -9,8 +9,8 @@
 [ext_resource path="res://Assets/Visual/Entities/Player/Parts/Shoes/1.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Visual/Global/UI/Cursor.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Ressources/Fonts/Retro Gaming.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Spe B/0.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Spe F/0.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Back/0.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Front/0.png" type="Texture" id=11]
 
 [sub_resource type="DynamicFont" id=7]
 size = 9
@@ -178,7 +178,7 @@ tracks/5/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Player/Spe B:frame")
+tracks/6/path = NodePath("Player/Back:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -190,7 +190,7 @@ tracks/6/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Player/Spe F:frame")
+tracks/7/path = NodePath("Player/Front:frame")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -205,7 +205,7 @@ tracks/7/keys = {
 [sub_resource type="Animation" id=9]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Player/Spe B:frame")
+tracks/0/path = NodePath("Player/Back:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -217,7 +217,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Player/Spe F:frame")
+tracks/1/path = NodePath("Player/Front:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -259,17 +259,17 @@ __meta__ = {
 }
 
 [node name="ColorPicker" type="ColorPicker" parent="UI"]
-margin_left = 688.0
-margin_top = 48.0
-margin_right = 1008.0
-margin_bottom = 486.0
+margin_left = 696.0
+margin_top = 56.0
+margin_right = 1016.0
+margin_bottom = 494.0
 theme = SubResource( 6 )
 edit_alpha = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spe B" type="Button" parent="UI"]
+[node name="Back" type="Button" parent="UI"]
 margin_left = 448.0
 margin_top = 472.0
 margin_right = 512.0
@@ -278,13 +278,13 @@ rect_scale = Vector2( 2, 2 )
 hint_tooltip = "Accessory on the back of the player."
 theme = SubResource( 6 )
 custom_styles/focus = SubResource( 8 )
-text = "Spe B 0"
+text = "Back 0"
 flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonR" type="Button" parent="UI/Spe B"]
+[node name="ButtonR" type="Button" parent="UI/Back"]
 margin_left = 64.0
 margin_right = 88.0
 margin_bottom = 24.0
@@ -296,7 +296,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonL" type="Button" parent="UI/Spe B"]
+[node name="ButtonL" type="Button" parent="UI/Back"]
 margin_right = 24.0
 margin_bottom = 24.0
 rect_rotation = -180.0
@@ -537,7 +537,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spe F" type="Button" parent="UI"]
+[node name="Front" type="Button" parent="UI"]
 margin_left = 448.0
 margin_top = 24.0
 margin_right = 512.0
@@ -546,13 +546,13 @@ rect_scale = Vector2( 2, 2 )
 hint_tooltip = "Accessory on the front of the player."
 theme = SubResource( 6 )
 custom_styles/focus = SubResource( 8 )
-text = "Spe F 0"
+text = "Front 0"
 flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonR" type="Button" parent="UI/Spe F"]
+[node name="ButtonR" type="Button" parent="UI/Front"]
 margin_left = 64.0
 margin_right = 88.0
 margin_bottom = 24.0
@@ -564,7 +564,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonL" type="Button" parent="UI/Spe F"]
+[node name="ButtonL" type="Button" parent="UI/Front"]
 margin_right = 24.0
 margin_bottom = 24.0
 rect_rotation = -180.0
@@ -621,7 +621,7 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Spe B" type="Sprite" parent="Player"]
+[node name="Back" type="Sprite" parent="Player"]
 modulate = Color( 1, 0, 0, 1 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 10 )
@@ -663,7 +663,7 @@ scale = Vector2( 10, 10 )
 texture = ExtResource( 6 )
 hframes = 20
 
-[node name="Spe F" type="Sprite" parent="Player"]
+[node name="Front" type="Sprite" parent="Player"]
 modulate = Color( 1, 0, 0, 1 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 11 )
@@ -674,9 +674,9 @@ anims/Idle = SubResource( 1 )
 anims/RESET = SubResource( 9 )
 
 [connection signal="color_changed" from="UI/ColorPicker" to="." method="_on_ColorPicker_color_changed"]
-[connection signal="pressed" from="UI/Spe B" to="." method="_on_Button_pressed" binds= [ "Spe B", 0 ]]
-[connection signal="pressed" from="UI/Spe B/ButtonR" to="." method="_on_Button_pressed" binds= [ "Spe B", 1 ]]
-[connection signal="pressed" from="UI/Spe B/ButtonL" to="." method="_on_Button_pressed" binds= [ "Spe B", -1 ]]
+[connection signal="pressed" from="UI/Back" to="." method="_on_Button_pressed" binds= [ "Back", 0 ]]
+[connection signal="pressed" from="UI/Back/ButtonR" to="." method="_on_Button_pressed" binds= [ "Back", 1 ]]
+[connection signal="pressed" from="UI/Back/ButtonL" to="." method="_on_Button_pressed" binds= [ "Back", -1 ]]
 [connection signal="pressed" from="UI/Skin" to="." method="_on_Button_pressed" binds= [ "Skin", 0 ]]
 [connection signal="pressed" from="UI/Skin/ButtonR" to="." method="_on_Button_pressed" binds= [ "Skin", 1 ]]
 [connection signal="pressed" from="UI/Skin/ButtonL" to="." method="_on_Button_pressed" binds= [ "Skin", -1 ]]
@@ -695,8 +695,8 @@ anims/RESET = SubResource( 9 )
 [connection signal="pressed" from="UI/Hairs" to="." method="_on_Button_pressed" binds= [ "Hairs", 0 ]]
 [connection signal="pressed" from="UI/Hairs/ButtonR" to="." method="_on_Button_pressed" binds= [ "Hairs", 1 ]]
 [connection signal="pressed" from="UI/Hairs/ButtonL" to="." method="_on_Button_pressed" binds= [ "Hairs", -1 ]]
-[connection signal="pressed" from="UI/Spe F" to="." method="_on_Button_pressed" binds= [ "Spe F", 0 ]]
-[connection signal="pressed" from="UI/Spe F/ButtonR" to="." method="_on_Button_pressed" binds= [ "Spe F", 1 ]]
-[connection signal="pressed" from="UI/Spe F/ButtonL" to="." method="_on_Button_pressed" binds= [ "Spe F", -1 ]]
+[connection signal="pressed" from="UI/Front" to="." method="_on_Button_pressed" binds= [ "Front", 0 ]]
+[connection signal="pressed" from="UI/Front/ButtonR" to="." method="_on_Button_pressed" binds= [ "Front", 1 ]]
+[connection signal="pressed" from="UI/Front/ButtonL" to="." method="_on_Button_pressed" binds= [ "Front", -1 ]]
 [connection signal="text_changed" from="UI/TextEdit" to="." method="_on_TextEdit_text_changed"]
 [connection signal="pressed" from="UI/End" to="." method="_on_End_pressed"]

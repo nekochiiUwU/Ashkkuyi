@@ -1,0 +1,58 @@
+Name:
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Parts:
+Back:
+1
+ffff0000
+Skin:
+0
+ffff0000
+Shoes:
+1
+ffff0000
+Pants:
+1
+ffff0000
+Shirt:
+1
+ffff0000
+Face:
+1
+ff000000
+Hairs:
+0
+ffffffff
+Front:
+1
+ffffffff
+Pos:
+Spawn
+Stuff:
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+Stats:
+0, 0, 0, 0, 0, 0
+RangedWpn:
+0, 0, 0, 0, 0
+EldrichKnowledge:
+0, 0, 0, 0, 0
+MeleeWpn:
+0, 0, 0, 0, 0
+Movements:
+0, 0, 0
+Status:
+0, 0, 0, 0, 0
+State:

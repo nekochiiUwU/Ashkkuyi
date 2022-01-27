@@ -8,20 +8,22 @@ var name_available = false
 var selected_part = "Skin"
 var path_parts = "res://Assets/Visual/Entities//Player/Parts/"
 var parts: Dictionary = {
-	"Spe F": [0, Color(1, 1, 1)],
+	"Front": [0, Color(1, 1, 1)],
 	"Face" : [1, Color(1, 1, 1)],
 	"Hairs": [1, Color(1, 1, 1)],
 	"Shirt": [1, Color(1, 1, 1)],
 	"Pants": [1, Color(1, 1, 1)],
 	"Shoes": [1, Color(1, 1, 1)],
 	"Skin" : [0, Color(1, 1, 1)],
-	"Spe B": [0, Color(1, 1, 1)]
+	"Back": [0, Color(1, 1, 1)]
 } 
 
 
 func _ready():
 	_on_TextEdit_text_changed()
-
+	for i in player.get_children():
+		_on_Button_pressed(i.name, 0)
+		_on_ColorPicker_color_changed(ui.get_child(0).color)
 
 func _process(delta):
 	pass
@@ -102,14 +104,22 @@ func create_character():
 	file.store_string(data)
 	file.close()
 	
-	data = ui.get_node("TextEdit").text + "\n"
+	data = "Name:\n" + ui.get_node("TextEdit").text + "\nParts:\n"
 	for i in player.get_children():
+		data += i.name + ":\n"
 		data += str(parts[i.name][0]) + "\n"
-		data += str(parts[i.name][1].r) + "\n"
-		data += str(parts[i.name][1].g) + "\n"
-		data += str(parts[i.name][1].b) + "\n"
-	data += "[]\n[]\n[]"
-	#       pos-inventory
+		data += str(parts[i.name][1].to_html()) + "\n"
+	data +=   "Pos:\nSpawn\n"\
+			+ "Stuff:\nNone\nNone\nNone\nNone\nNone\nNone\n"\
+			+ "None\nNone\nNone\nNone\nNone\nNone\nNone\nNone\nNone\n"\
+			+ "Stats:\n0, 0, 0, 0, 0, 0\n"\
+			+ "RangedWpn:\n0, 0, 0, 0, 0\n"\
+			+ "EldrichKnowledge:\n0, 0, 0, 0, 0\n"\
+			+ "MeleeWpn:\n0, 0, 0, 0, 0\n"\
+			+ "Movements:\n0, 0, 0\n"\
+			+ "Status:\n0, 0, 0, 0, 0\n"\
+			+ "State:\n"# Status = Hp, Shield, Mana, Equipped, Equipped Set
+
 	file.open("res://Data/Characters/" + str(fileid) + ".txt", File.WRITE)
 	file.store_string(data)
 	file.close()

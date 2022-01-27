@@ -9,7 +9,7 @@ transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107,
 script = ExtResource( 2 )
 
 [node name="Visual" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, -0.001, 0 )
 generate_lightmap = false
 pixel_size = 0.04
 axis = 1

@@ -1,13 +1,15 @@
 class_name Player
 extends KinematicBody
 
+onready var _inventory = load("res://Scenes/Game/UI/Inventory.tscn").instance()
+
 onready var p = get_parent()
 onready var cursor = p.get_node("Cursor")
 onready var camera = p.get_node("Camera")
 onready var visual = get_node("Visual")
 onready var hitbox = get_node("Collision")
 onready var camera_pos = get_node("CameraPos")
-onready var animation_player = get_node("Visual/Animation Player")
+onready var animation_player = get_node("Animation Player")
 
 const GRAVITY    = -1000
 var jump_height  = 750
@@ -15,6 +17,9 @@ var weight       = 50
 var gravity      = 0
 var speed        = 250
 var speedtick    = speed
+
+var data: Dictionary 
+var Name
 
 var l_click_pressed = false
 var r_click_pressed = false
@@ -25,7 +30,9 @@ var sensibility= 100
 
 var cursor_type= 0
 
-var is_on_floor = true
+var is_on_floor= true
+
+var inventory_open = false
 
 
 var animations = {
@@ -112,7 +119,17 @@ func get_input():
 		animations["to_Crouch"] = false
 		hitbox.shape.height = 1.6
 		hitbox.translation = Vector3(0, -0.475, 0)
-
+	
+	if Input.is_action_just_pressed("inventaire"):
+		if not inventory_open:
+			camera.add_child(_inventory)
+			inventory_open = true
+			Input.set_mouse_mode(0)
+		else:
+			camera.remove_child(_inventory)
+			inventory_open = false
+			Input.set_mouse_mode(2)
+		
 	if Input.is_mouse_button_pressed(2):
 		r_click_pressed = true
 	else:
@@ -153,15 +170,8 @@ func move(delta):
 			gravity = jump_height
 	vector = Vector3()
 
-func inventory():
-	pass
-	
-func _input(event):
-	if event is InputEventMouseMotion:
-		var motion = Vector3(-event.relative.y - event.relative.x, 0, -event.relative.y + event.relative.x) * 1 / sensibility
-		cursor_pos += motion
 
-func _process(delta):
+func local_process(delta):
 	speedtick = speed
 	get_input()
 	cursor.translation = cursor_pos + camera.translation
@@ -170,5 +180,43 @@ func _process(delta):
 	cursor.translation.z = clamp(cursor.translation.z, translation.z - 15, translation.z + 15)
 	update_animations()
 
+
+func set_variables():
+	translation = data["Position"]
+	print(data["Position"])
+
+func send_variables():
+	rset_unreliable('data', data)
+
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		var motion = Vector3(-event.relative.y - event.relative.x, 0, -event.relative.y + event.relative.x) * 1 / sensibility
+		cursor_pos += motion
+
+
+func init(d, is_slave):
+	rset_config("data", 1)
+	if typeof(d["Position"]) ==  typeof("Spawn"):
+		d["Position"] = Vector3(10, 3, 0)
+	else:
+		d["Position"] = Vector3(d["Position"][0], d["Position"][1], d["Position"][2])
+	data = d
+	for i in visual.get_children():
+		i.texture = load("res://Assets/Visual/Entities/Player/Parts/"+i.name+"/"+data[i.name][0]+".png")
+		i.modulate = Color(data[i.name][1])
+
+
+func _process(delta):
+	if is_network_master():
+		local_process(delta)
+		send_variables()
+	else:
+		set_variables()
+	if get_tree().is_network_server():
+		Network.update_data(int(get_parent().name), data)
+
+
 func _physics_process(delta):
-	move(delta)
+	if is_network_master():
+		move(delta)

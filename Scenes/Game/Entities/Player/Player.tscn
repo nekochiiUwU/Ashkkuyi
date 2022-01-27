@@ -9,8 +9,8 @@
 [ext_resource path="res://Assets/Visual/Entities/Player/Parts/Hairs/1.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Game/Entities/Player/Weapons/0.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/Visual/Entities/Player/Parts/Skin/0.png" type="Texture" id=9]
-[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Spe F/1.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Spe B/1.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Front/1.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Visual/Entities/Player/Parts/Back/1.png" type="Texture" id=11]
 
 [sub_resource type="CapsuleShape" id=10]
 radius = 0.3
@@ -34,7 +34,7 @@ tracks/0/keys = {
 "values": [ 9, 10 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head:frame")
+tracks/1/path = NodePath("Face:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -94,7 +94,7 @@ tracks/5/keys = {
 "values": [ 9, 10 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Spe B:frame")
+tracks/6/path = NodePath("Back:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -106,7 +106,7 @@ tracks/6/keys = {
 "values": [ 9, 10 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Spe F:frame")
+tracks/7/path = NodePath("Front:frame")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -134,7 +134,7 @@ tracks/0/keys = {
 "values": [ 11, 12, 13 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head:frame")
+tracks/1/path = NodePath("Face:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -194,7 +194,7 @@ tracks/5/keys = {
 "values": [ 11, 12, 13 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Spe F:frame")
+tracks/6/path = NodePath("Front:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -206,7 +206,7 @@ tracks/6/keys = {
 "values": [ 11, 12, 13 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Spe B:frame")
+tracks/7/path = NodePath("Back:frame")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -234,7 +234,7 @@ tracks/0/keys = {
 "values": [ 17, 18, 19 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head:frame")
+tracks/1/path = NodePath("Face:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -294,7 +294,7 @@ tracks/5/keys = {
 "values": [ 17, 18, 19 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Spe B:frame")
+tracks/6/path = NodePath("Back:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -306,7 +306,7 @@ tracks/6/keys = {
 "values": [ 17, 18, 19 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Spe F:frame")
+tracks/7/path = NodePath("Front:frame")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -334,7 +334,7 @@ tracks/0/keys = {
 "values": [ 14, 15, 16 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head:frame")
+tracks/1/path = NodePath("Face:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -394,7 +394,7 @@ tracks/5/keys = {
 "values": [ 14, 15, 16 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Spe B:frame")
+tracks/6/path = NodePath("Back:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -406,7 +406,7 @@ tracks/6/keys = {
 "values": [ 14, 15, 16 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Spe F:frame")
+tracks/7/path = NodePath("Front:frame")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -445,7 +445,7 @@ tracks/1/keys = {
 "values": [ Vector2( 13, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Spe F:frame")
+tracks/2/path = NodePath("Front:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -457,7 +457,7 @@ tracks/2/keys = {
 "values": [ 0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Spe B:frame")
+tracks/3/path = NodePath("Back:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -485,7 +485,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7, 8 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head:frame")
+tracks/1/path = NodePath("Face:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -545,7 +545,7 @@ tracks/5/keys = {
 "values": [ 4, 5, 6, 7, 8 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Spe B:frame")
+tracks/6/path = NodePath("Back:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -557,7 +557,7 @@ tracks/6/keys = {
 "values": [ 4, 5, 6, 7, 8 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Spe F:frame")
+tracks/7/path = NodePath("Front:frame")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -585,7 +585,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head:frame")
+tracks/1/path = NodePath("Face:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -645,7 +645,7 @@ tracks/5/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Spe F:frame")
+tracks/6/path = NodePath("Front:frame")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -657,7 +657,7 @@ tracks/6/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Spe B:frame")
+tracks/7/path = NodePath("Back:frame")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -683,7 +683,7 @@ transmission_texture = ExtResource( 1 )
 uv1_scale = Vector3( 1, -0.5, 0 )
 uv1_offset = Vector3( 0, 1, 0 )
 
-[node name="Player" type="Spatial"]
+[node name="Player0" type="Spatial"]
 
 [node name="Player" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.6, 1 )
@@ -699,7 +699,7 @@ transform = Transform( -0.707107, 0.353553, -0.612372, 0, 0.866026, 0.5, 0.70710
 [node name="Visual" type="Spatial" parent="Player"]
 transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
 
-[node name="Spe B" type="Sprite3D" parent="Player/Visual"]
+[node name="Back" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.005 )
 modulate = Color( 0.25098, 0.12549, 0, 1 )
 pixel_size = 0.04
@@ -722,7 +722,7 @@ pixel_size = 0.04
 shaded = true
 texture = ExtResource( 6 )
 hframes = 20
-frame = 3
+frame = 9
 
 [node name="Pants" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00100005 )
@@ -731,7 +731,7 @@ pixel_size = 0.04
 shaded = true
 texture = ExtResource( 3 )
 hframes = 20
-frame = 3
+frame = 9
 
 [node name="Shirt" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00199997 )
@@ -740,16 +740,16 @@ pixel_size = 0.04
 shaded = true
 texture = ExtResource( 4 )
 hframes = 20
-frame = 3
+frame = 9
 
-[node name="Head" type="Sprite3D" parent="Player/Visual"]
+[node name="Face" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00300014 )
 modulate = Color( 1, 0.937255, 0, 1 )
 pixel_size = 0.04
 shaded = true
 texture = ExtResource( 2 )
 hframes = 20
-frame = 3
+frame = 9
 
 [node name="Hairs" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.004 )
@@ -758,9 +758,9 @@ pixel_size = 0.04
 shaded = true
 texture = ExtResource( 7 )
 hframes = 20
-frame = 3
+frame = 9
 
-[node name="Spe F" type="Sprite3D" parent="Player/Visual"]
+[node name="Front" type="Sprite3D" parent="Player/Visual"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.005 )
 modulate = Color( 0.25098, 0.12549, 0, 1 )
 pixel_size = 0.04
@@ -768,7 +768,14 @@ shaded = true
 texture = ExtResource( 10 )
 hframes = 20
 
-[node name="Animation Player" type="AnimationPlayer" parent="Player/Visual"]
+[node name="Test Shoot Weapon" parent="Player" instance=ExtResource( 8 )]
+
+[node name="Listener" type="Listener" parent="Player"]
+transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
+current = true
+
+[node name="Animation Player" type="AnimationPlayer" parent="Player"]
+root_node = NodePath("../Visual")
 autoplay = "Stand"
 anims/Crouch = SubResource( 2 )
 "anims/Crouch Run" = SubResource( 3 )
@@ -778,17 +785,9 @@ anims/RESET = SubResource( 11 )
 anims/Run = SubResource( 6 )
 anims/Stand = SubResource( 7 )
 
-[node name="Test Shoot Weapon" parent="Player" instance=ExtResource( 8 )]
-
-[node name="Listener" type="Listener" parent="Player"]
-transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
-current = true
-
 [node name="Camera" type="InterpolatedCamera" parent="."]
 transform = Transform( -0.707107, 0.270598, -0.653282, 0, 0.92388, 0.382683, 0.707107, 0.270598, -0.653282, -2, 2, -2 )
-visible = false
 projection = 1
-current = true
 size = 10.0
 far = 50.0
 target = NodePath("../Player/CameraPos")
