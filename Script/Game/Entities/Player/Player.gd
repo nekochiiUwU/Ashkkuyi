@@ -30,8 +30,6 @@ var sensibility= 100
 
 var cursor_type= 0
 
-var is_on_floor= true
-
 var inventory_open = false
 
 
@@ -129,7 +127,7 @@ func get_input():
 			camera.remove_child(_inventory)
 			inventory_open = false
 			Input.set_mouse_mode(2)
-		
+	
 	if Input.is_mouse_button_pressed(2):
 		r_click_pressed = true
 	else:
@@ -143,16 +141,15 @@ func get_input():
 		camera_pos.global_transform.origin = Vector3(translation.x-20, 17.5, translation.z-20)
 
 func move(delta):
-	is_on_floor = true
-	if not is_on_floor():# or gravity:
-		is_on_floor = false
+	if not is_on_floor():
 		dir /= 10
-	
-	vector += Vector3(0, gravity, 0)
-	vector += dir.normalized() * speedtick
+	if gravity:
+		vector += Vector3(0, gravity, 0)
+	if dir:
+		vector += dir.normalized() * speedtick
 	if vector:
 		vector = move_and_slide(vector * delta, Vector3(0, 1, 0))
-		
+	
 	if not is_on_floor():
 		if gravity > GRAVITY:
 			gravity += 0.05 * GRAVITY

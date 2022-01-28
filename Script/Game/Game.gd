@@ -13,8 +13,8 @@ func _on_Music_finished(node):
 func _process(delta):
 	time += delta
 	time = get_node("Music/Base/0/Chill").get_playback_position()
-	$thing.mesh.height = (-((float(int(time * 1000) % tempo)) / (tempo))) * 0.08 + 0.16
-	$thing.mesh.radius = (-((float(int(time * 1000) % tempo)) / (tempo))) * 0.04 + 0.08
+	$thing.mesh.height = (-((float(int(time * 1000) % tempo)) / (tempo))) * 0.06 + 0.12
+	$thing.mesh.radius = (-((float(int(time * 1000) % tempo)) / (tempo))) * 0.03 + 0.06
 	#$thing.speed_scale = 10
 
 func run():
