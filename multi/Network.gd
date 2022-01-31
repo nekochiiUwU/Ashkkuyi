@@ -1,6 +1,6 @@
 extends Node
 
-var SERVER_IP = '127.0.0.1'
+var SERVER_IP = '127.0.0.1'#172.17.28.158
 var SERVER_PORT = 62319
 var MAX_PLAYERS = 3
 

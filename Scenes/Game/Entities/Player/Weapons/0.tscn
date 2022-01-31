@@ -4,7 +4,7 @@
 [ext_resource path="res://Script/Game/Entities/Player/Weapons/0.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Visual/Entities/Player/Parts/Hand.png" type="Texture" id=3]
 
-[node name="Test Shoot Weapon" type="Spatial"]
+[node name="Weapon" type="Spatial"]
 transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, -0.6, 0 )
 script = ExtResource( 2 )
 

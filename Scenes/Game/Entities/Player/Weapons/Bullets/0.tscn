@@ -24,7 +24,6 @@ shape = SubResource( 3 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
-autostart = true
 
 [node name="Sprite" type="Sprite3D" parent="."]
 pixel_size = 0.03

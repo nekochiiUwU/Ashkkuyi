@@ -15,7 +15,6 @@ fog_depth_begin = 45.0
 fog_depth_end = 0.0
 fog_transmit_curve = 10.0
 auto_exposure_scale = 0.1
-glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_luminance_cap = 16.0
 glow_hdr_scale = 4.0
@@ -69,8 +68,7 @@ _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.242623, 1 ), 0.0, 0.0, 0, 
 script = ExtResource( 2 )
 
 [node name="Light" type="DirectionalLight" parent="."]
-transform = Transform( -0.622624, 0.677683, -0.391261, 0, 0.5, 0.866025, 0.782521, 0.539208, -0.311312, -5.02522, -1.05031, 11 )
-visible = false
+transform = Transform( -0.622624, 0.677683, -0.391261, 0, 0.5, 0.866025, 0.782521, 0.539208, -0.311312, -22.4282, 7.63101, 11 )
 shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_depth_range = 1
@@ -133,8 +131,9 @@ bus = "Musique"
 
 [node name="thing" type="CPUParticles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.63691, 0 )
+visible = false
 cast_shadow = 0
-amount = 128
+amount = 1
 lifetime = 4.0
 fixed_fps = 60
 mesh = SubResource( 7 )

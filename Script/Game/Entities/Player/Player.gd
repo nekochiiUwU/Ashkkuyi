@@ -2,6 +2,7 @@ class_name Player
 extends KinematicBody
 
 onready var _inventory = load("res://Scenes/Game/UI/Inventory.tscn").instance()
+onready var _bullet = load("res://Scenes/Game/Entities/Player/Weapons/Bullets/0.tscn")
 
 onready var p = get_parent()
 onready var cursor = p.get_node("Cursor")
@@ -10,6 +11,16 @@ onready var visual = get_node("Visual")
 onready var hitbox = get_node("Collision")
 onready var camera_pos = get_node("CameraPos")
 onready var animation_player = get_node("Animation Player")
+
+var online = {
+	"Weapon": [],
+	"Hp": 1000,
+	"Shield": 500,
+	"Mana": 1000,
+	"Frame": 0,
+	"Position": Vector3(),
+	"Flip h": false
+}
 
 const GRAVITY    = -1000
 var jump_height  = 750
@@ -20,6 +31,9 @@ var speedtick    = speed
 
 var data: Dictionary 
 var Name
+var hp = 1000
+var shield = 500
+var mana = 1000
 
 var l_click_pressed = false
 var r_click_pressed = false
@@ -57,6 +71,7 @@ var dir   : Vector3 = Vector3()
 var vector: Vector3 = Vector3(0, 0.01, 0)
 var rota  : Vector3 = Vector3()
 
+
 func update_animations():
 	if animations["Jump"]:
 		animation_player.play("Jump")
@@ -73,6 +88,41 @@ func update_animations():
 		animations["Run"] = false
 	else:
 		animation_player.play("Stand")
+
+
+func move(delta):
+	if not is_on_floor():
+		dir /= 10
+	if gravity:
+		vector += Vector3(0, gravity, 0)
+	if dir:
+		vector += dir.normalized() * speedtick
+	if vector:
+		vector = move_and_slide(vector * delta, Vector3(0, 1, 0))
+	
+	if not is_on_floor():
+		if gravity > GRAVITY:
+			gravity += 0.05 * GRAVITY
+		if vector.y < 0:
+			animations["Fall"] = true
+			animations["Jump"] = false
+		else:
+			animations["Fall"] = false
+			animations["Jump"] = true
+	else:
+		animations["Fall"] = false
+		animations["Jump"] = false
+		gravity = -50 #0.05 * GRAVITY
+		if Input.is_action_just_pressed("jump"):
+			gravity = jump_height
+	vector = Vector3()
+
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		var motion = Vector3(-event.relative.y - event.relative.x, 0, -event.relative.y + event.relative.x) * 1 / sensibility
+		cursor_pos += motion
+
 
 func get_input():
 	dir = Vector3()
@@ -140,32 +190,81 @@ func get_input():
 	else:
 		camera_pos.global_transform.origin = Vector3(translation.x-20, 17.5, translation.z-20)
 
-func move(delta):
-	if not is_on_floor():
-		dir /= 10
-	if gravity:
-		vector += Vector3(0, gravity, 0)
-	if dir:
-		vector += dir.normalized() * speedtick
-	if vector:
-		vector = move_and_slide(vector * delta, Vector3(0, 1, 0))
-	
-	if not is_on_floor():
-		if gravity > GRAVITY:
-			gravity += 0.05 * GRAVITY
-		if vector.y < 0:
-			animations["Fall"] = true
-			animations["Jump"] = false
-		else:
-			animations["Fall"] = false
-			animations["Jump"] = true
+
+func set_variables():
+	hp = online["Hp"]
+	shield = online["Shield"]
+	mana = online["Mana"]
+	for i in visual.get_children():
+		i.flip_h = online["Flip h"]
+		i.frame = online["Frame"]
+	translation = online["Position"]
+	if online["Weapon"]:
+		$Weapon.transform.basis.x = online["Weapon"][0]
+		$Weapon.special = online["Weapon"][1]
+		$Weapon.bullet_color = online["Weapon"][2]
+
+
+func send_variables():
+	online["Hp"] = hp
+	online["Shield"] = shield
+	online["Mana"] = mana
+	online["Frame"] = visual.get_child(0).frame
+	online["Position"] = translation
+	online["Weapon"] = []
+	for i in get_children():
+		if i.name == "Weapon":
+			online["Weapon"] = [i.transform.basis.x, i.special, i.bullet_color]
+	online["Flip h"] = visual.get_child(0).flip_h
+	rset_unreliable('online', online)
+
+
+remote func fire(bullet_name, color, speed, size, maxrange, orientation):
+	print("uwu")
+	var bullet = _bullet.instance()
+	bullet.transform = $Weapon/Visual.get_global_transform()
+	bullet.speed = speed
+	bullet.size = size
+	bullet.maxrange = maxrange
+	bullet.init(orientation, color)
+	bullet.name = bullet_name
+	bullet.get_node("Area").monitoring = false
+	get_parent().add_child(bullet)
+
+
+remote func hurt(damage, initiating, special = {}):
+	if initiating:
+		rpc("hurt", damage, false, special)
+	hp -= damage
+
+
+func init(d, is_slave):
+	rset_config("online", 1)
+	#rset_config("fire", 1)
+	data = d
+	if typeof(d["Position"]) ==  typeof("Spawn"):
+		d["Position"] = Vector3(rand_range(-10, 10), 3, rand_range(-10, 10))
 	else:
-		animations["Fall"] = false
-		animations["Jump"] = false
-		gravity = -50 #0.05 * GRAVITY
-		if Input.is_action_just_pressed("jump"):
-			gravity = jump_height
-	vector = Vector3()
+		d["Position"] = Vector3(d["Position"][0], d["Position"][1], d["Position"][2])
+	
+	for i in visual.get_children():
+		i.texture = load("res://Assets/Visual/Entities/Player/Parts/"+i.name+"/"+d[i.name][0]+".png")
+		i.modulate = Color(data[i.name][1])
+	
+	if not is_slave:
+		cursor.visible = true
+		camera.enabled = true
+		$Listener.make_current()
+
+
+func _process(delta):
+	if is_network_master():
+		local_process(delta)
+		send_variables()
+	else:
+		set_variables()
+	if get_tree().is_network_server():
+		Network.update_data(int(p.name), data)
 
 
 func local_process(delta):
@@ -176,42 +275,6 @@ func local_process(delta):
 	cursor.translation.x = clamp(cursor.translation.x, translation.x - 15, translation.x + 15)
 	cursor.translation.z = clamp(cursor.translation.z, translation.z - 15, translation.z + 15)
 	update_animations()
-
-
-func set_variables():
-	translation = data["Position"]
-	print(data["Position"])
-
-func send_variables():
-	rset_unreliable('data', data)
-
-
-func _input(event):
-	if event is InputEventMouseMotion:
-		var motion = Vector3(-event.relative.y - event.relative.x, 0, -event.relative.y + event.relative.x) * 1 / sensibility
-		cursor_pos += motion
-
-
-func init(d, is_slave):
-	rset_config("data", 1)
-	if typeof(d["Position"]) ==  typeof("Spawn"):
-		d["Position"] = Vector3(10, 3, 0)
-	else:
-		d["Position"] = Vector3(d["Position"][0], d["Position"][1], d["Position"][2])
-	data = d
-	for i in visual.get_children():
-		i.texture = load("res://Assets/Visual/Entities/Player/Parts/"+i.name+"/"+data[i.name][0]+".png")
-		i.modulate = Color(data[i.name][1])
-
-
-func _process(delta):
-	if is_network_master():
-		local_process(delta)
-		send_variables()
-	else:
-		set_variables()
-	if get_tree().is_network_server():
-		Network.update_data(int(get_parent().name), data)
 
 
 func _physics_process(delta):
