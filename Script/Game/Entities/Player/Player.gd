@@ -7,6 +7,7 @@ onready var _bullet = load("res://Scenes/Game/Entities/Player/Weapons/Bullets/0.
 onready var p = get_parent()
 onready var cursor = p.get_node("Cursor")
 onready var camera = p.get_node("Camera")
+onready var UI = camera.get_node("Canvas/UI")
 onready var visual = get_node("Visual")
 onready var hitbox = get_node("Collision")
 onready var camera_pos = get_node("CameraPos")
@@ -32,8 +33,11 @@ var speedtick    = speed
 var data: Dictionary 
 var Name
 var hp = 1000
+var max_hp = 1000
 var shield = 500
+var max_shield = 500
 var mana = 1000
+var max_mana = 1000
 
 var l_click_pressed = false
 var r_click_pressed = false
@@ -90,6 +94,11 @@ func update_animations():
 		animation_player.play("Stand")
 
 
+func update_hp():
+	UI.get_node("Health").rect_size.x = 12 + (float(hp) / max_hp) * 460
+	UI.get_node("Shield").rect_size.x = 12 + (float(shield) / max_shield) * 460
+
+
 func move(delta):
 	if not is_on_floor():
 		dir /= 10
@@ -124,8 +133,11 @@ func _input(event):
 		cursor_pos += motion
 		camera.get_node("RayCast").rotate_x(-event.relative.y * 1 / sensibility)
 		camera.get_node("RayCast").rotate_y(-event.relative.x * 1 / sensibility)
-		clamp(-360, camera.get_node("RayCast").rotation.x, 360)
-		clamp(-360, camera.get_node("RayCast").rotation.y, 360)
+		print(camera.get_node("RayCast").rotation_degrees.y)
+		camera.get_node("RayCast").rotation_degrees.x = clamp(
+			camera.get_node("RayCast").rotation_degrees.x, -10, 6)
+		camera.get_node("RayCast").rotation_degrees.y = clamp(
+			camera.get_node("RayCast").rotation_degrees.y, -14, 14)
 
 
 func get_input():
@@ -243,8 +255,10 @@ remote func hurt(damage, initiating, special = {}):
 		shield -= damage
 		if shield < 0:
 			hp -= shield
+			shield = 0
 	else:
-		hp -= shield
+		hp -= damage
+	update_hp()
 
 
 func init(d, is_slave):
@@ -279,10 +293,8 @@ func _process(delta):
 func local_process(delta):
 	speedtick = speed
 	get_input()
-	cursor.translation = cursor_pos + camera.translation
-	cursor.translation.y -= camera.translation.y - 0.7
-	cursor.translation.x = clamp(cursor.translation.x, translation.x - 15, translation.x + 15)
-	cursor.translation.z = clamp(cursor.translation.z, translation.z - 15, translation.z + 15)
+	cursor.translation = camera.get_node("RayCast").get_collision_point()
+	cursor.translation.y += 1.3
 	update_animations()
 
 

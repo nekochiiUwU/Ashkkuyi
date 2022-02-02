@@ -25,7 +25,7 @@ var CHANNEL = 60
 var channel = 60
 
 var click_pressed = true
-var damage = 10
+var damage = 50
 var special = {"poison": [0.01, 5]}
 var bullet_color = Color(0, 1, 0)
 var cursor_type = 0
@@ -70,7 +70,7 @@ func shoot():
 	player.vector -= Vector3(transform.basis.x.x, 0, transform.basis.x.z) * 200
 	var b = _bullet.instance()
 	b.transform = $Visual.get_global_transform()
-	b.transform.origin += Vector3(0.2, 0, 0).rotated(Vector3.UP, rotation.y)
+	b.transform.origin += Vector3(0.3, 0, 0).rotated(Vector3.UP, rotation.y)
 	b.speed = speed
 	b.maxrange = maxrange
 	b.size = size

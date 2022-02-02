@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Assets/Visual/Global/Cursor.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Visual/Entities/Player/Parts/Face/1.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Assets/Visual/Entities/Player/Parts/Skin/0.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Visual/Entities/Player/Parts/Front/1.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Visual/Entities/Player/Parts/Back/1.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Visual/Global/Mana Texture.png" type="Texture" id=12]
 
 [sub_resource type="CapsuleShape" id=16]
 radius = 0.5
@@ -681,7 +682,7 @@ flags_unshaded = true
 albedo_color = Color( 0, 0.784314, 1, 1 )
 
 [sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 0, 0, 0, 1 )
+bg_color = Color( 0, 0, 0, 0.25098 )
 corner_radius_top_right = 40
 corner_detail = 1
 
@@ -694,20 +695,37 @@ corner_radius_top_right = 40
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.501961, 0.501961, 0.501961, 0.882353 )
-border_width_top = 4
-border_width_right = 4
-border_color = Color( 0.501961, 0.501961, 0.501961, 1 )
+bg_color = Color( 0.501961, 0.501961, 0.501961, 0.752941 )
+border_color = Color( 0.501961, 0.501961, 0.501961, 0 )
 corner_radius_top_right = 40
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id=15]
-bg_color = Color( 0, 1, 0.784314, 1 )
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
+bg_color = Color( 0.25098, 0.392157, 0.392157, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.501961, 0.784314, 0.784314, 1 )
+border_blend = true
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 corner_detail = 1
+
+[sub_resource type="Shader" id=19]
+code = "shader_type canvas_item;
+uniform sampler2D alpha_texture;
+uniform float offset;
+void fragment() {
+	COLOR = vec4(COLOR.rgb, texture(alpha_texture, UV + offset).a);
+}"
+
+[sub_resource type="ShaderMaterial" id=22]
+shader = SubResource( 19 )
+shader_param/offset = -0.5
+shader_param/alpha_texture = ExtResource( 12 )
 
 [sub_resource type="SpatialMaterial" id=8]
 flags_transparent = true
@@ -723,10 +741,26 @@ transmission_texture = ExtResource( 1 )
 uv1_scale = Vector3( 1, -0.5, 0 )
 uv1_offset = Vector3( 0, 1, 0 )
 
+[sub_resource type="SpatialMaterial" id=23]
+flags_transparent = true
+flags_unshaded = true
+params_blend_mode = 1
+albedo_color = Color( 1, 0, 0, 1 )
+refraction_enabled = true
+refraction_scale = 0.05
+refraction_texture_channel = 0
+
+[sub_resource type="SphereMesh" id=24]
+material = SubResource( 23 )
+radius = 0.1
+height = 0.2
+radial_segments = 4
+rings = 1
+
 [node name="Player0" type="Spatial"]
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.78212, 4.71228, -4.26888 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.782, 4.94389, -4.269 )
 script = ExtResource( 5 )
 
 [node name="Collision" type="CollisionShape" parent="Player"]
@@ -869,7 +903,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button3" type="Button" parent="Camera/Canvas/UI"]
+[node name="Health Font" type="Button" parent="Camera/Canvas/UI"]
 margin_left = 40.0
 margin_top = 20.0
 margin_right = 512.0
@@ -881,7 +915,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="Camera/Canvas/UI"]
+[node name="Health" type="Button" parent="Camera/Canvas/UI"]
 margin_left = 40.0
 margin_top = 20.0
 margin_right = 512.0
@@ -893,7 +927,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button2" type="Button" parent="Camera/Canvas/UI"]
+[node name="Shield" type="Button" parent="Camera/Canvas/UI"]
 margin_left = 40.0
 margin_top = 20.0
 margin_right = 512.0
@@ -905,14 +939,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button4" type="Button" parent="Camera/Canvas/UI"]
-margin_left = 8.0
+[node name="Mana Font" type="Button" parent="Camera/Canvas/UI"]
+margin_left = 16.0
 margin_top = 8.0
-margin_right = 56.0
+margin_right = 64.0
 margin_bottom = 56.0
+rect_clip_content = true
 mouse_filter = 2
 custom_styles/disabled = SubResource( 15 )
 disabled = true
+shortcut_in_tooltip = false
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mana" type="ColorRect" parent="Camera/Canvas/UI/Mana Font"]
+material = SubResource( 22 )
+margin_left = 24.0
+margin_top = 48.0
+margin_right = 58.0
+margin_bottom = 82.0
+rect_rotation = -135.0
+color = Color( 0, 1, 1, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -956,18 +1005,23 @@ debug_shape_custom_color = Color( 1, 0, 0, 1 )
 debug_shape_thickness = 4.0
 
 [node name="Cursor" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0 )
 
 [node name="CSGCylinder" type="CSGCylinder" parent="Cursor"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )
 material_override = SubResource( 8 )
 cast_shadow = 0
 radius = 0.2
-height = 2.0
+height = 5.0
 sides = 16
 cone = true
 
-[node name="OmniLight" type="OmniLight" parent="Cursor/CSGCylinder"]
-transform = Transform( 1, -1.54614e-09, -2.79397e-09, 1.54614e-09, 1, 3.49246e-10, 2.79397e-09, -3.49246e-10, 1, 0, -0.790962, 0 )
+[node name="OmniLight" type="OmniLight" parent="Cursor"]
+transform = Transform( 1, -1.54614e-09, -2.79397e-09, 1.54614e-09, 1, 3.49246e-10, 2.79397e-09, -3.49246e-10, 1, 0, 0.8, 0 )
 light_color = Color( 1, 0, 0, 1 )
 shadow_enabled = true
+
+[node name="MeshInstance" type="MeshInstance" parent="Cursor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0 )
+mesh = SubResource( 24 )
+material/0 = null
