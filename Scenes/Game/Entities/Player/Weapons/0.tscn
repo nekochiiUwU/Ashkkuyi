@@ -25,3 +25,7 @@ axis = 1
 shaded = true
 double_sided = false
 texture = ExtResource( 3 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
+current = true

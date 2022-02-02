@@ -8,9 +8,9 @@ var speed = 5
 var path = []
 var path_node = 0
 
-var fov = deg2rad(100.0)
+var fov = deg2rad(180.0)
 var rangeov = 15
-var regov = deg2rad(2.5)
+var regov = deg2rad(3)
 
 func generate_raycasts():
 	var ray_count = fov / regov

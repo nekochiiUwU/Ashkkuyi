@@ -19,7 +19,7 @@ shape = SubResource( 1 )
 
 [node name="Area" type="Area" parent="."]
 
-[node name="CollisionShape2" type="CollisionShape" parent="Area"]
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
 shape = SubResource( 3 )
 
 [node name="Timer" type="Timer" parent="."]

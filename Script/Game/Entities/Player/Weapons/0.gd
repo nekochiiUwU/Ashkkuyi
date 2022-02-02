@@ -70,6 +70,7 @@ func shoot():
 	player.vector -= Vector3(transform.basis.x.x, 0, transform.basis.x.z) * 200
 	var b = _bullet.instance()
 	b.transform = $Visual.get_global_transform()
+	b.transform.origin += Vector3(0.2, 0, 0).rotated(Vector3.UP, rotation.y)
 	b.speed = speed
 	b.maxrange = maxrange
 	b.size = size

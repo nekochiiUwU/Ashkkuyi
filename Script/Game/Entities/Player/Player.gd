@@ -40,7 +40,7 @@ var r_click_pressed = false
 var jump            = false
 
 var cursor_pos = Vector3(20, -0.15, 20)
-var sensibility= 100
+var sensibility= 1000
 
 var cursor_type= 0
 
@@ -98,7 +98,7 @@ func move(delta):
 	if dir:
 		vector += dir.normalized() * speedtick
 	if vector:
-		vector = move_and_slide(vector * delta, Vector3(0, 1, 0))
+		vector = move_and_slide(vector * delta, Vector3.UP)
 	
 	if not is_on_floor():
 		if gravity > GRAVITY:
@@ -122,6 +122,10 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		var motion = Vector3(-event.relative.y - event.relative.x, 0, -event.relative.y + event.relative.x) * 1 / sensibility
 		cursor_pos += motion
+		camera.get_node("RayCast").rotate_x(-event.relative.y * 1 / sensibility)
+		camera.get_node("RayCast").rotate_y(-event.relative.x * 1 / sensibility)
+		clamp(-360, camera.get_node("RayCast").rotation.x, 360)
+		clamp(-360, camera.get_node("RayCast").rotation.y, 360)
 
 
 func get_input():
@@ -159,22 +163,22 @@ func get_input():
 		animations["Run"] = true
 	if Input.is_action_pressed("crouch"):
 		animations["to_Crouch"] = true
-		hitbox.shape.height = 1.45
+		hitbox.shape.height = 0.45
 		hitbox.translation = Vector3(0, -0.55, 0)
 		speedtick /= 3
 	else:
 		animations["Crouch"] = false
 		animations["to_Crouch"] = false
-		hitbox.shape.height = 1.6
-		hitbox.translation = Vector3(0, -0.475, 0)
+		hitbox.shape.height = 0.6
+		hitbox.translation = Vector3(0, -0.6, 0)
 	
 	if Input.is_action_just_pressed("inventaire"):
 		if not inventory_open:
-			camera.add_child(_inventory)
+			camera.get_node("Canvas").add_child(_inventory)
 			inventory_open = true
 			Input.set_mouse_mode(0)
 		else:
-			camera.remove_child(_inventory)
+			camera.get_node("Canvas").remove_child(_inventory)
 			inventory_open = false
 			Input.set_mouse_mode(2)
 	
@@ -188,7 +192,7 @@ func get_input():
 			(translation.x*3 + cursor.translation.x)/4 -20, 17.5
 			, (translation.z*3 + cursor.translation.z)/4 -20)
 	else:
-		camera_pos.global_transform.origin = Vector3(translation.x-20, 17.5, translation.z-20)
+		camera_pos.global_transform.origin = Vector3(translation.x-20, 16 + translation.y, translation.z-20)
 
 
 func set_variables():
@@ -220,9 +224,9 @@ func send_variables():
 
 
 remote func fire(bullet_name, color, speed, size, maxrange, orientation):
-	print("uwu")
 	var bullet = _bullet.instance()
 	bullet.transform = $Weapon/Visual.get_global_transform()
+	bullet.transform.origin += Vector3(0.2, 0, 0).rotated(Vector3.UP, bullet.transform.basis.y)
 	bullet.speed = speed
 	bullet.size = size
 	bullet.maxrange = maxrange
@@ -235,7 +239,12 @@ remote func fire(bullet_name, color, speed, size, maxrange, orientation):
 remote func hurt(damage, initiating, special = {}):
 	if initiating:
 		rpc("hurt", damage, false, special)
-	hp -= damage
+	if shield:
+		shield -= damage
+		if shield < 0:
+			hp -= shield
+	else:
+		hp -= shield
 
 
 func init(d, is_slave):
