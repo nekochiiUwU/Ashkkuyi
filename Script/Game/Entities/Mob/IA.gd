@@ -47,3 +47,4 @@ func move_to(pos):
 
 func _on_Timer_timeout():
 	ray_detection()
+

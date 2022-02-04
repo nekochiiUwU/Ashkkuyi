@@ -36,8 +36,8 @@ var hp = 1000
 var max_hp = 1000
 var shield = 500
 var max_shield = 500
-var mana = 1000
-var max_mana = 1000
+var mana = 100
+var max_mana = 100
 
 var l_click_pressed = false
 var r_click_pressed = false
@@ -94,9 +94,10 @@ func update_animations():
 		animation_player.play("Stand")
 
 
-func update_hp():
+func update():
 	UI.get_node("Health").rect_size.x = 12 + (float(hp) / max_hp) * 460
 	UI.get_node("Shield").rect_size.x = 12 + (float(shield) / max_shield) * 460
+	UI.get_node("Mana Font/Mana").material.set_shader_param("offset", -(float(mana) / max_mana) + 0.5)
 
 
 func move(delta):
@@ -133,7 +134,6 @@ func _input(event):
 		cursor_pos += motion
 		camera.get_node("RayCast").rotate_x(-event.relative.y * 1 / sensibility)
 		camera.get_node("RayCast").rotate_y(-event.relative.x * 1 / sensibility)
-		print(camera.get_node("RayCast").rotation_degrees.y)
 		camera.get_node("RayCast").rotation_degrees.x = clamp(
 			camera.get_node("RayCast").rotation_degrees.x, -10, 6)
 		camera.get_node("RayCast").rotation_degrees.y = clamp(
@@ -184,6 +184,15 @@ func get_input():
 		hitbox.shape.height = 0.6
 		hitbox.translation = Vector3(0, -0.6, 0)
 	
+	if Input.is_action_just_pressed("interact"):
+		var object: Array = []
+		for body in get_node("Area").overlaps_body():
+			if not object:
+				object = [body, transform.origin.distance_to(body.transform.origin)]
+			elif transform.origin.distance_to(body.transform.origin) < object[1]:
+				object = [body, transform.origin.distance_to(body.transform.origin)]
+		if object and object[0] is Weapon:
+			pass
 	if Input.is_action_just_pressed("inventaire"):
 		if not inventory_open:
 			camera.get_node("Canvas").add_child(_inventory)
@@ -205,7 +214,14 @@ func get_input():
 			, (translation.z*3 + cursor.translation.z)/4 -20)
 	else:
 		camera_pos.global_transform.origin = Vector3(translation.x-20, 16 + translation.y, translation.z-20)
-
+	
+	if Input.is_key_pressed(KEY_0):
+		var uwu = load("res://Scenes/Game/Entities/Arme.tscn").instance()
+		var spawn_pos = transform.origin
+		spawn_pos.y += 10
+		uwu.init(spawn_pos, 1, 1)
+		get_parent().get_parent().add_child(uwu)
+		
 
 func set_variables():
 	hp = online["Hp"]
@@ -219,6 +235,10 @@ func set_variables():
 		$Weapon.transform.basis.x = online["Weapon"][0]
 		$Weapon.special = online["Weapon"][1]
 		$Weapon.bullet_color = online["Weapon"][2]
+
+
+func loot_arme(stats):
+	pass
 
 
 func send_variables():
@@ -249,16 +269,14 @@ remote func fire(bullet_name, color, speed, size, maxrange, orientation):
 
 
 remote func hurt(damage, initiating, special = {}):
-	if initiating:
-		rpc("hurt", damage, false, special)
 	if shield:
 		shield -= damage
 		if shield < 0:
-			hp -= shield
+			hp += shield
 			shield = 0
 	else:
 		hp -= damage
-	update_hp()
+	update()
 
 
 func init(d, is_slave):
@@ -271,7 +289,7 @@ func init(d, is_slave):
 		d["Position"] = Vector3(d["Position"][0], d["Position"][1], d["Position"][2])
 	
 	for i in visual.get_children():
-		i.texture = load("res://Assets/Visual/Entities/Player/Parts/"+i.name+"/"+d[i.name][0]+".png")
+		i.texture = load("res://Assets/Textures/Entities/Player/Parts/"+i.name+"/"+d[i.name][0]+".png")
 		i.modulate = Color(data[i.name][1])
 	
 	if not is_slave:
@@ -294,7 +312,7 @@ func local_process(delta):
 	speedtick = speed
 	get_input()
 	cursor.translation = camera.get_node("RayCast").get_collision_point()
-	cursor.translation.y += 1.3
+	cursor.translation.y += 0.8
 	update_animations()
 
 

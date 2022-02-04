@@ -24,6 +24,8 @@ var spread = Vector2(0, 0)
 var CHANNEL = 60
 var channel = 60
 
+var cost = 20
+
 var click_pressed = true
 var damage = 50
 var special = {"poison": [0.01, 5]}
@@ -32,13 +34,7 @@ var cursor_type = 0
 
 func _process(delta):
 	if is_network_master():
-		transform.basis.x =-(
-								player.translation - 
-								(
-									cursor.translation + 
-									cursor.get_child(cursor_type).translation
-								)
-							).normalized()
+		transform.basis.x = -(global_transform.origin - cursor.translation).normalized()
 		if not autospeed < 0:
 			autospeed -= delta * 60
 		if not channel < 0:
@@ -67,13 +63,16 @@ func _process(delta):
 			click_pressed = true
 
 func shoot():
-	player.vector -= Vector3(transform.basis.x.x, 0, transform.basis.x.z) * 200
-	var b = _bullet.instance()
-	b.transform = $Visual.get_global_transform()
-	b.transform.origin += Vector3(0.3, 0, 0).rotated(Vector3.UP, rotation.y)
-	b.speed = speed
-	b.maxrange = maxrange
-	b.size = size
-	b.init(spread, bullet_color, damage)
-	player.get_parent().add_child(b)
-	get_parent().rpc_unreliable("fire", b.name, bullet_color, speed, b.size, b.maxrange, spread)
+	if not player.mana < cost:
+		player.vector -= Vector3(transform.basis.x.x, 0, transform.basis.x.z) * 200
+		player.mana -= cost
+		var b = _bullet.instance()
+		b.transform = $Visual.get_global_transform()
+		b.transform.origin += Vector3(0.3, 0, 0).rotated(Vector3.UP, rotation.y)
+		b.speed = speed
+		b.maxrange = maxrange
+		b.size = size
+		b.init(spread, bullet_color, damage)
+		player.get_parent().add_child(b)
+		player.update()
+		get_parent().rpc_unreliable("fire", b.name, bullet_color, speed, b.size, b.maxrange, spread)

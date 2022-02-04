@@ -12,17 +12,13 @@
 background_mode = 1
 background_sky = SubResource( 1 )
 background_color = Color( 0.784314, 0.501961, 0.501961, 1 )
+fog_enabled = true
 fog_color = Color( 0.784314, 0.501961, 0.501961, 1 )
 fog_depth_begin = 40.0
 fog_depth_end = 0.0
-fog_height_enabled = true
 fog_height_max = -1.0
 fog_height_curve = 9.18958
-tonemap_mode = 4
-tonemap_exposure = 0.5
 auto_exposure_scale = 0.1
-ss_reflections_enabled = true
-glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_luminance_cap = 16.0
 glow_hdr_scale = 4.0
@@ -93,6 +89,9 @@ script = ExtResource( 2 )
 [node name="Light" type="DirectionalLight" parent="."]
 transform = Transform( -0.173648, 0.925416, -0.336824, 0, 0.34202, 0.939693, 0.984808, 0.163176, -0.0593912, -0.427436, 2.67336, -5.45798 )
 shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_blend_splits = true
+directional_shadow_depth_range = 1
 
 [node name="Env" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )

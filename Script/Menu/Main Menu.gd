@@ -4,6 +4,7 @@ onready var character_selector = get_node("Select Character")
 
 
 func _ready():
+	var rng = RandomNumberGenerator.new()
 	var fileid = 0
 	var data = []
 	var file = File.new()
