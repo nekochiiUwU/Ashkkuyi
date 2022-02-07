@@ -1,0 +1,102 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/Game/UI/Inventory.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Script/Game/UI/Preview_item.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Textures/Entities/Weapons/spritesheet preview Armes.png" type="Texture" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxLine" id=2]
+color = Color( 1, 0.992157, 0, 1 )
+thickness = 5
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Fond" type="ColorRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 0.25098 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 16.0
+margin_top = 96.0
+margin_right = 288.0
+margin_bottom = 636.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0" type="ColorRect" parent="ColorRect"]
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 256.0
+margin_bottom = 184.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0" type="ColorRect" parent="ColorRect/0"]
+margin_left = 56.0
+margin_top = 56.0
+margin_right = 184.0
+margin_bottom = 120.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonSlot" type="Button" parent="ColorRect/0/0"]
+margin_right = 128.0
+margin_bottom = 64.0
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="Sprite" parent="ColorRect/0/0/ButtonSlot"]
+position = Vector2( 64, 32 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 3 )
+hframes = 7
+
+[node name="1" type="ColorRect" parent="ColorRect"]
+margin_left = 16.0
+margin_top = 192.0
+margin_right = 256.0
+margin_bottom = 528.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextEdit" type="RichTextLabel" parent="ColorRect/1"]
+margin_right = 240.0
+margin_bottom = 336.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_clip_content = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( 296, 96 )
+scale = Vector2( 0.75, 0.75 )
+
+[node name="Node2D2" parent="Node2D" instance=ExtResource( 1 )]
+position = Vector2( 10.6667, 0 )

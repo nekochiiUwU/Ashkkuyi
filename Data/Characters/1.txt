@@ -1,0 +1,58 @@
+Name:
+Tatata
+Parts:
+Back:
+0
+ffff0000
+Skin:
+0
+ffeac4ce
+Shoes:
+2
+ff181413
+Pants:
+1
+ff18161e
+Shirt:
+1
+ff1f1f21
+Face:
+2
+ff000000
+Hairs:
+2
+ffc3c3c3
+Front:
+2
+ff503232
+Pos:
+Spawn
+Stuff:
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+Stats:
+0, 0, 0, 0, 0, 0
+RangedWpn:
+0, 0, 0, 0, 0
+EldrichKnowledge:
+0, 0, 0, 0, 0
+MeleeWpn:
+0, 0, 0, 0, 0
+Movements:
+0, 0, 0
+Status:
+0, 0, 0, 0, 0
+State:

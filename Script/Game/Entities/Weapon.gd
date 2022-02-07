@@ -3,7 +3,8 @@ extends RigidBody
 
 var liste_armes_names = ["FA", "LMG", "P", "SMG", "R", "SG", "S"]
 var liste_armes_types = ["FA", "SA","B", "SG"]
-var liste_armes = {
+
+"""var liste_armes = {
 	"FA": {
 		"damages": 0,
 		"type": 0,
@@ -107,8 +108,23 @@ var liste_armes = {
 		"calibre": 0,
 		"recoil": 0,
 		"max_range": [0,6]
-	}
-}
+		
+		
+		
+			var weapon_name = random
+			damages = rng.randfn(liste_armes[weapon_name]["damages"] * pow(level, 0.5), luck)
+			type = rng.randfn(liste_armes[weapon_name]["type"] * pow(level, 0.5), luck)
+			manacost = rng.randfn(liste_armes[weapon_name]["manacost"] * pow(level, 0.5), luck)
+			firerate = rng.randfn(liste_armes[weapon_name]["firerate"] * pow(level, 0.5), luck)
+			magazine_size = rng.randfn(liste_armes[weapon_name]["magazine_size"] * pow(level, 0.5), luck)
+			current_ammo = magazine_size
+			reload_time = rng.randfn(liste_armes[weapon_name]["reload_time"] * pow(level, 0.5), luck)
+			accuracy = rng.randfn(liste_armes[weapon_name]["accuracy"] * pow(level, 0.5), luck)
+			velocity = rng.randfn(liste_armes[weapon_name]["velocity"] * pow(level, 0.5), luck)
+			calibre = rng.randfn(liste_armes[weapon_name]["calibre"] * pow(level, 0.5), luck)
+			recoil = rng.randfn(liste_armes[weapon_name]["recoil"][0] * pow(level, 0.5), luck)
+			max_range = rng.randfn(60 * pow(level, 0.5), luck)}}"""
+
 
 var arme
 var damages
@@ -125,7 +141,15 @@ var recoil
 var recoil_recover
 var max_range
 
+var stats: Array
+
 #var current_recoil
+func export_stats():
+	if arme[0] == 0:
+		stats = [arme, damages, type, manacost, firerate, magazine_size, 
+		current_ammo, reload_time, accuracy, velocity, calibre, 
+		recoil, recoil_recover, max_range]
+
 
 func loot_weapon(level, luck):
 	level = float(level)
@@ -153,24 +177,8 @@ func loot_weapon(level, luck):
 		
 	elif liste_armes_names[random] == "LMG":
 		pass
-		
-	"""
-		var weapon_name = random
-		damages = rng.randfn(liste_armes[weapon_name]["damages"] * pow(level, 0.5), luck)
-		type = rng.randfn(liste_armes[weapon_name]["type"] * pow(level, 0.5), luck)
-		manacost = rng.randfn(liste_armes[weapon_name]["manacost"] * pow(level, 0.5), luck)
-		firerate = rng.randfn(liste_armes[weapon_name]["firerate"] * pow(level, 0.5), luck)
-		magazine_size = rng.randfn(liste_armes[weapon_name]["magazine_size"] * pow(level, 0.5), luck)
-		current_ammo = magazine_size
-		reload_time = rng.randfn(liste_armes[weapon_name]["reload_time"] * pow(level, 0.5), luck)
-		accuracy = rng.randfn(liste_armes[weapon_name]["accuracy"] * pow(level, 0.5), luck)
-		velocity = rng.randfn(liste_armes[weapon_name]["velocity"] * pow(level, 0.5), luck)
-		calibre = rng.randfn(liste_armes[weapon_name]["calibre"] * pow(level, 0.5), luck)
-		recoil = rng.randfn(liste_armes[weapon_name]["recoil"][0] * pow(level, 0.5), luck)
-		max_range = rng.randfn(60 * pow(level, 0.5), luck)
-		"""
-	
-	
+	#lsite export
+	export_stats()
 
 
 func loot_cac(level, luck):

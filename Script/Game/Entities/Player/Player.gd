@@ -2,6 +2,7 @@ class_name Player
 extends KinematicBody
 
 onready var _inventory = load("res://Scenes/Game/UI/Inventory.tscn").instance()
+onready var _preview = load("res://Scenes/Game/UI/Preview_item.tscn")
 onready var _bullet = load("res://Scenes/Game/Entities/Player/Weapons/Bullets/0.tscn")
 
 onready var p = get_parent()
@@ -32,11 +33,11 @@ var speedtick    = speed
 
 var data: Dictionary 
 var Name
-var hp = 1000
+var hp = 1000.0
 var max_hp = 1000
-var shield = 500
+var shield = 500.0
 var max_shield = 500
-var mana = 100
+var mana = 100.0
 var max_mana = 100
 
 var l_click_pressed = false
@@ -49,6 +50,7 @@ var sensibility= 1000
 var cursor_type= 0
 
 var inventory_open = false
+var preview_open = false
 
 
 var animations = {
@@ -67,13 +69,19 @@ var colors: Dictionary = {
 	"Shoes": Color(0, 1, 1),
 }
 
-var inventory = [0, 0, 0, 0, 0, 0, 0, 0, 0,
-				 0, 0, 0, 0, 0, 0, 0, 0, 0]
+var inventory = [[0, 0, 0, 0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 #var equiped = [Weapon.instance(), Weapon.instance(), Weapon.instance()]
 
 var dir   : Vector3 = Vector3()
 var vector: Vector3 = Vector3(0, 0.01, 0)
 var rota  : Vector3 = Vector3()
+
+
+func hide_body(body):
+	body.visible = false
+
+func show_body(body):
+	body.visible = true
 
 
 func update_animations():
@@ -185,22 +193,29 @@ func get_input():
 		hitbox.translation = Vector3(0, -0.6, 0)
 	
 	if Input.is_action_just_pressed("interact"):
-		var object: Array = []
-		for body in get_node("Area").overlaps_body():
+		var object = []
+		for body in get_node("Area").get_overlapping_bodies():
 			if not object:
 				object = [body, transform.origin.distance_to(body.transform.origin)]
 			elif transform.origin.distance_to(body.transform.origin) < object[1]:
 				object = [body, transform.origin.distance_to(body.transform.origin)]
 		if object and object[0] is Weapon:
-			pass
+			object = object[0]
+			var preview = _preview.instance()
+			preview.init(object)
+			camera.get_node("Canvas").add_child(preview)
+			preview_open = true
+			Input.set_mouse_mode(0)
+	
 	if Input.is_action_just_pressed("inventaire"):
-		if not inventory_open:
+		if not inventory_open and not preview_open:
 			camera.get_node("Canvas").add_child(_inventory)
 			inventory_open = true
 			Input.set_mouse_mode(0)
 		else:
 			camera.get_node("Canvas").remove_child(_inventory)
 			inventory_open = false
+			preview_open = false
 			Input.set_mouse_mode(2)
 	
 	if Input.is_mouse_button_pressed(2):
@@ -210,10 +225,11 @@ func get_input():
 	
 	if r_click_pressed:
 		camera_pos.global_transform.origin = Vector3(
-			(translation.x*3 + cursor.translation.x)/4 -20, 17.5
-			, (translation.z*3 + cursor.translation.z)/4 -20)
+			(translation.x*3 + cursor.translation.x)/4 -20, 16 + translation.y,
+			 (translation.z*3 + cursor.translation.z)/4 -20)
 	else:
-		camera_pos.global_transform.origin = Vector3(translation.x-20, 16 + translation.y, translation.z-20)
+		camera_pos.global_transform.origin = Vector3(translation.x-20, 
+		16 + translation.y, translation.z-20)
 	
 	if Input.is_key_pressed(KEY_0):
 		var uwu = load("res://Scenes/Game/Entities/Arme.tscn").instance()
@@ -258,7 +274,7 @@ func send_variables():
 remote func fire(bullet_name, color, speed, size, maxrange, orientation):
 	var bullet = _bullet.instance()
 	bullet.transform = $Weapon/Visual.get_global_transform()
-	bullet.transform.origin += Vector3(0.2, 0, 0).rotated(Vector3.UP, bullet.transform.basis.y)
+	bullet.transform.origin += Vector3(0.2, 0, 0).rotated(Vector3.UP, $Weapon.rotation.y)
 	bullet.speed = speed
 	bullet.size = size
 	bullet.maxrange = maxrange
@@ -293,9 +309,14 @@ func init(d, is_slave):
 		i.modulate = Color(data[i.name][1])
 	
 	if not is_slave:
+		camera.get_node("RayCast/Area").connect("body_entered", self, "hide_body")
+		camera_pos.get_node("Area").connect("body_entered", self, "hide_body")
+		camera.get_node("RayCast/Area").connect("body_exited", self, "show_body")
+		camera_pos.get_node("Area").connect("body_exited", self, "show_body")
 		cursor.visible = true
 		camera.enabled = true
 		$Listener.make_current()
+	update()
 
 
 func _process(delta):
@@ -309,6 +330,12 @@ func _process(delta):
 
 
 func local_process(delta):
+	if mana < max_mana:
+		mana += delta
+		update()
+	if shield < max_shield:
+		shield += delta * 10
+		update()
 	speedtick = speed
 	get_input()
 	cursor.translation = camera.get_node("RayCast").get_collision_point()

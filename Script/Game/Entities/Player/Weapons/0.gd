@@ -24,7 +24,7 @@ var spread = Vector2(0, 0)
 var CHANNEL = 60
 var channel = 60
 
-var cost = 20
+var cost = 2
 
 var click_pressed = true
 var damage = 50

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Assets/Textures/Global/Cursor.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Textures/Entities/Player/Parts/Face/1.png" type="Texture" id=2]
@@ -16,6 +16,9 @@
 [sub_resource type="CapsuleShape" id=16]
 radius = 0.5
 height = 0.6
+
+[sub_resource type="RayShape" id=26]
+length = 32.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "Crouch"
@@ -727,6 +730,14 @@ shape = SubResource( 16 )
 [node name="CameraPos" type="Spatial" parent="Player"]
 transform = Transform( -0.707107, 0.353553, -0.612372, 0, 0.866026, 0.5, 0.707107, 0.353553, -0.612372, -20, 17.5, -20 )
 
+[node name="Area" type="Area" parent="Player/CameraPos"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+monitoring = false
+
+[node name="CollisionShape" type="CollisionShape" parent="Player/CameraPos/Area"]
+transform = Transform( 1, 1.49012e-08, -2.98023e-08, 0, 1, -1.49012e-08, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 26 )
+
 [node name="Visual" type="Spatial" parent="Player"]
 transform = Transform( -0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0 )
 
@@ -843,6 +854,8 @@ mesh = SubResource( 17 )
 material = SubResource( 18 )
 
 [node name="Area" type="Area" parent="Player"]
+collision_layer = 0
+collision_mask = 16
 
 [node name="CollisionShape" type="CollisionShape" parent="Player/Area"]
 shape = SubResource( 25 )

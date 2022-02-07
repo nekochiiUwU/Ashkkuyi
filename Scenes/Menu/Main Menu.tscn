@@ -31,28 +31,28 @@ script = ExtResource( 6 )
 environment = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_right = 1280.0
+margin_bottom = 720.0
 color = Color( 0.278431, 0.168627, 0.168627, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Create Character" type="Button" parent="."]
-margin_left = 376.0
-margin_top = 544.0
-margin_right = 648.0
-margin_bottom = 568.0
+margin_left = 512.0
+margin_top = 656.0
+margin_right = 768.0
+margin_bottom = 688.0
 text = "Create Character"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Create" type="Button" parent="."]
-margin_left = 800.0
-margin_top = 464.0
-margin_right = 992.0
-margin_bottom = 528.0
+margin_left = 992.0
+margin_top = 576.0
+margin_right = 1248.0
+margin_bottom = 640.0
 text = "Create"
 script = SubResource( 2 )
 __meta__ = {
@@ -60,28 +60,24 @@ __meta__ = {
 }
 
 [node name="Join" type="Button" parent="."]
-margin_left = 800.0
-margin_top = 536.0
-margin_right = 992.0
-margin_bottom = 568.0
+margin_left = 992.0
+margin_top = 656.0
+margin_right = 1248.0
+margin_bottom = 688.0
 text = "Join"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Select Character" type="OptionButton" parent="."]
-margin_left = 368.0
-margin_top = 512.0
-margin_right = 656.0
-margin_bottom = 532.0
+margin_left = 448.0
+margin_top = 624.0
+margin_right = 832.0
+margin_bottom = 644.0
 text = "Selected caracter"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 512, 300 )
-current = true
 
 [connection signal="pressed" from="Create Character" to="." method="_on_Create_Character_pressed"]
 [connection signal="pressed" from="Create" to="." method="_on_Host_pressed"]

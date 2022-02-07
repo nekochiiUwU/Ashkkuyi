@@ -6,7 +6,7 @@ const UNAUTORISED_CHARACTERS = ["\n"]
 const NEEDED_CHARACTERS = ["a", "A"]
 var name_available = false
 var selected_part = "Skin"
-var path_parts = "res://Assets/Visual/Entities//Player/Parts/"
+var path_parts = "res://Assets/Textures/Entities/Player/Parts/"
 var parts: Dictionary = {
 	"Front": [0, Color(1, 1, 1)],
 	"Face" : [1, Color(1, 1, 1)],

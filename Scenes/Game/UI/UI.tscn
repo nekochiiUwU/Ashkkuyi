@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/Textures/Global/Mana Texture.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Textures/Entities/Weapons/spritesheet preview Armes.png" type="Texture" id=2]
@@ -51,6 +51,9 @@ shader_param/alpha_texture = ExtResource( 1 )
 
 [sub_resource type="Curve" id=23]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.242063, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="RayShape" id=24]
+length = 32.0
 
 [node name="Camera" type="InterpolatedCamera"]
 transform = Transform( -0.707107, 0.270598, -0.653282, 0, 0.92388, 0.382683, 0.707107, 0.270598, -0.653282, -20, 2, -20 )
@@ -132,8 +135,10 @@ __meta__ = {
 }
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Canvas/UI/Mana Font"]
+light_mask = 3
 position = Vector2( 24, 24 )
 rotation = 0.785398
+emitting = false
 amount = 6
 lifetime = 2.0
 speed_scale = 0.2
@@ -270,5 +275,14 @@ enabled = true
 exclude_parent = false
 cast_to = Vector3( 0, 0, -80 )
 collision_mask = 32768
-debug_shape_custom_color = Color( 1, 0, 0, 1 )
-debug_shape_thickness = 4.0
+debug_shape_custom_color = Color( 1, 0, 0, 0.0627451 )
+debug_shape_thickness = 5.0
+
+[node name="Area" type="Area" parent="RayCast"]
+transform = Transform( -1, 0, -8.9407e-08, 0, 1, -1.49012e-08, 5.96046e-08, 0, -1, 0, 0, 0 )
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="RayCast/Area"]
+transform = Transform( 1, 1.49012e-08, -2.98023e-08, 0, 1, -1.49012e-08, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 24 )
