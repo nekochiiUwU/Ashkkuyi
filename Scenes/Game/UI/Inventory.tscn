@@ -132,6 +132,7 @@ position = Vector2( 64, 32 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 hframes = 7
+frame = 6
 
 [node name="1" type="ColorRect" parent="Set 1"]
 margin_left = 208.0

@@ -128,7 +128,7 @@ var liste_armes_types = ["FA", "SA","B", "SG"]
 
 var arme
 var damages
-var type
+var type: Array
 var manacost
 var firerate
 var magazine_size
@@ -143,6 +143,9 @@ var max_range
 
 var stats: Array
 
+func update():
+	get_node("Sprite3D").frame_coords = Vector2(arme.y, arme.x)
+	
 #var current_recoil
 func export_stats():
 	if arme[0] == 0:
@@ -150,17 +153,37 @@ func export_stats():
 		current_ammo, reload_time, accuracy, velocity, calibre, 
 		recoil, recoil_recover, max_range]
 
+func import_stats(s):
+	if s[0][0] == 0:
+		arme = s[0]
+		damages = s[1]
+		type = s[2]
+		manacost = s[3]
+		firerate = s[4]
+		magazine_size = s[5]
+		current_ammo = s[6]
+		reload_time = s[7]
+		accuracy = s[8]
+		velocity = s[9]
+		calibre = s[10]
+		recoil = s[11]
+		recoil_recover = s[12]
+		max_range = s[13]
+		update()
 
 func loot_weapon(level, luck):
 	level = float(level)
 	luck = float(luck)
-	var random = liste_armes_names[rand_range(0, 0)]
-	arme = Vector2(0, random)
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	if random == "FA":
+	arme = Vector2(0, rng.randi_range(0, 6))
+	var which = liste_armes_names[arme.y]
+	print(arme)
+	get_node("Sprite3D").frame_coords = Vector2(arme.y, arme.x)
+	#if random == "FA":
+	if which:
 		damages       = round(rng.randfn(60 * pow(level, 0.5), luck/60 * 60)*100)/100
-		type          = "FA"
+		type          = ["FA"]
 		manacost      = round(rng.randfn(30 * pow(level, 0.5), luck/60 * 30)*100)/100
 		firerate      = round(rng.randfn(6 * pow(level, 0.5), luck/60 * 6)*100)/100
 		magazine_size = round(rng.randfn(20 * pow(level, 0.5), luck/60 * 20)*100)/100
@@ -175,7 +198,7 @@ func loot_weapon(level, luck):
 		var stats = [damages, type, manacost]
 		print(stats)
 		
-	elif liste_armes_names[random] == "LMG":
+	elif liste_armes_names[which] == "LMG":
 		pass
 	#lsite export
 	export_stats()

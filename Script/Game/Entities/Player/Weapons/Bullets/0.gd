@@ -1,8 +1,8 @@
 extends Spatial
 
-var speed 
-var size
-var maxrange
+var velocity 
+var calibre
+var max_range
 var delta
 var dir
 var damage
@@ -12,8 +12,8 @@ func init(_spread, _color, _damage = 0):#, _special = {}):
 	rotate_y(_spread.y)
 	rotate_x(_spread.x)
 	damage = _damage
-	speed = float(speed)/1000
-	get_node("Timer").wait_time = maxrange/speed
+	velocity = float(velocity)/1000
+	get_node("Timer").wait_time = max_range/velocity
 	
 	#$Sprite.resource_local_to_scene = true
 	$Sprite.modulate = _color
@@ -34,7 +34,7 @@ func _ready():
 
 func _process(d):
 	delta = d * 60
-	translate(Vector3(delta*speed, 0, 0))
+	translate(Vector3(delta*velocity, 0, 0))
 
  
 func _on_Timer_timeout():

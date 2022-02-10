@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Assets/Textures/Entities/Player/Weapons/0.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Textures/Entities/Weapons/Spritesheet Armes.png" type="Texture" id=1]
 [ext_resource path="res://Script/Game/Entities/Player/Weapons/0.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Textures/Entities/Player/Parts/Hand.png" type="Texture" id=3]
 
@@ -16,6 +16,8 @@ axis = 1
 shaded = true
 double_sided = false
 texture = ExtResource( 1 )
+hframes = 8
+frame = 6
 
 [node name="Visual2" type="Sprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0, 0 )

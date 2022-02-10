@@ -1391,12 +1391,10 @@ material = SubResource( 12 )
 
 [node name="Fight" type="AudioStreamPlayer" parent="Music/Base/0"]
 stream = ExtResource( 4 )
-autoplay = true
 bus = "Musique"
 
 [node name="Chill" type="AudioStreamPlayer" parent="Music/Base/0"]
 stream = ExtResource( 1 )
-autoplay = true
 bus = "Musique"
 
 [node name="thing" type="CPUParticles" parent="."]

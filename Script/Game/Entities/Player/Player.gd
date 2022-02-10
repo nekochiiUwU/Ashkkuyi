@@ -1,14 +1,16 @@
 class_name Player
 extends KinematicBody
 
+
 onready var _inventory = load("res://Scenes/Game/UI/Inventory.tscn").instance()
-onready var _preview = load("res://Scenes/Game/UI/Preview_item.tscn")
+onready var _preview = load("res://Scenes/Game/UI/Preview_item.tscn").instance()
 onready var _bullet = load("res://Scenes/Game/Entities/Player/Weapons/Bullets/0.tscn")
 
 onready var p = get_parent()
 onready var cursor = p.get_node("Cursor")
 onready var camera = p.get_node("Camera")
 onready var UI = camera.get_node("Canvas/UI")
+onready var weapon = get_node("Weapon")
 onready var visual = get_node("Visual")
 onready var hitbox = get_node("Collision")
 onready var camera_pos = get_node("CameraPos")
@@ -39,6 +41,8 @@ var shield = 500.0
 var max_shield = 500
 var mana = 100.0
 var max_mana = 100
+var active_set = 1
+var active_weapon = 0
 
 var l_click_pressed = false
 var r_click_pressed = false
@@ -69,7 +73,7 @@ var colors: Dictionary = {
 	"Shoes": Color(0, 1, 1),
 }
 
-var inventory = [[0, 0, 0, 0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+var inventory = [[0, 0, 0, 0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0]]
 #var equiped = [Weapon.instance(), Weapon.instance(), Weapon.instance()]
 
 var dir   : Vector3 = Vector3()
@@ -107,7 +111,21 @@ func update():
 	UI.get_node("Shield").rect_size.x = 12 + (float(shield) / max_shield) * 460
 	UI.get_node("Mana Font/Mana").material.set_shader_param("offset", -(float(mana) / max_mana) + 0.5)
 
-
+func update_set():
+	for i in range(3):
+		if inventory[active_set][i]:
+			UI.get_node("ActiveSet/" + str(i) + "/TextureRect").visible = true
+			UI.get_node("ActiveSet/" + str(i) + "/TextureRect").frame_coords = Vector2(inventory[active_set][i][0][1], inventory[active_set][i][0][0])
+		else:
+			UI.get_node("ActiveSet/" + str(i) + "/TextureRect").visible = false
+		
+	for i in range(3):
+		if inventory[(active_set)%3+1][i]:
+			UI.get_node("NextSet/" + str(i) + "/TextureRect").visible = true
+			UI.get_node("NextSet/" + str(i) + "/TextureRect").frame_coords = Vector2(inventory[(active_set)%3+1][i][0][1], inventory[(active_set)%3+1][i][0][0])
+		else:
+			UI.get_node("NextSet/" + str(i) + "/TextureRect").visible = false
+			
 func move(delta):
 	if not is_on_floor():
 		dir /= 10
@@ -146,6 +164,16 @@ func _input(event):
 			camera.get_node("RayCast").rotation_degrees.x, -10, 6)
 		camera.get_node("RayCast").rotation_degrees.y = clamp(
 			camera.get_node("RayCast").rotation_degrees.y, -14, 14)
+	elif event is InputEventMouseButton:
+		if event.button_index == 4: 
+			active_weapon = (active_weapon - 1)%3
+			UI.get_node("ActiveSet/Select").rect_position.x = 40 - active_weapon*96
+			weapon.update_weapon()
+			
+		elif event.button_index == 5: 
+			active_weapon = (active_weapon - 1)%3
+			UI.get_node("ActiveSet/Select").rect_position.x = 232 + active_weapon*96
+			weapon.update_weapon()
 
 
 func get_input():
@@ -193,19 +221,22 @@ func get_input():
 		hitbox.translation = Vector3(0, -0.6, 0)
 	
 	if Input.is_action_just_pressed("interact"):
-		var object = []
-		for body in get_node("Area").get_overlapping_bodies():
-			if not object:
-				object = [body, transform.origin.distance_to(body.transform.origin)]
-			elif transform.origin.distance_to(body.transform.origin) < object[1]:
-				object = [body, transform.origin.distance_to(body.transform.origin)]
-		if object and object[0] is Weapon:
-			object = object[0]
-			var preview = _preview.instance()
-			preview.init(object)
-			camera.get_node("Canvas").add_child(preview)
-			preview_open = true
-			Input.set_mouse_mode(0)
+		if not preview_open:
+			var object = []
+			for body in get_node("Area").get_overlapping_bodies():
+				if not object:
+					object = [body, transform.origin.distance_to(body.transform.origin)]
+				elif transform.origin.distance_to(body.transform.origin) < object[1]:
+					object = [body, transform.origin.distance_to(body.transform.origin)]
+			if object and object[0] is Weapon:
+				object = object[0]
+				camera.get_node("Canvas").add_child(_preview)
+				_preview.init(object)
+				preview_open = true
+				Input.set_mouse_mode(0)
+		else:
+			preview_open = false
+			camera.get_node("Canvas").remove_child(_preview)
 	
 	if Input.is_action_just_pressed("inventaire"):
 		if not inventory_open and not preview_open:
@@ -214,10 +245,24 @@ func get_input():
 			Input.set_mouse_mode(0)
 		else:
 			camera.get_node("Canvas").remove_child(_inventory)
+			camera.get_node("Canvas").remove_child(_preview)
 			inventory_open = false
 			preview_open = false
+			update_set()
 			Input.set_mouse_mode(2)
 	
+	if Input.is_action_just_pressed("next_weapon"):
+		active_weapon = (active_weapon + 1)%3
+		
+	if Input.is_mouse_button_pressed(5):
+		active_weapon = (active_weapon - 1)%3
+		UI.get_node("ActiveSet/Select").position.x = 40 + active_weapon*196
+		print("pog")
+		
+	if Input.is_action_just_pressed("next_set"):
+		active_set = (active_set)%3 + 1
+		update_set()
+		
 	if Input.is_mouse_button_pressed(2):
 		r_click_pressed = true
 	else:
@@ -317,6 +362,8 @@ func init(d, is_slave):
 		camera.enabled = true
 		$Listener.make_current()
 	update()
+	update_set()
+	weapon.update_weapon()
 
 
 func _process(delta):

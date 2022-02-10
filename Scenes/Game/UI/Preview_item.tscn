@@ -35,7 +35,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="0" type="ColorRect" parent="ColorRect"]
+[node name="Set 4" type="ColorRect" parent="ColorRect"]
 margin_left = 16.0
 margin_top = 8.0
 margin_right = 256.0
@@ -45,7 +45,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="0" type="ColorRect" parent="ColorRect/0"]
+[node name="0" type="ColorRect" parent="ColorRect/Set 4"]
 margin_left = 56.0
 margin_top = 56.0
 margin_right = 184.0
@@ -56,7 +56,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonSlot" type="Button" parent="ColorRect/0/0"]
+[node name="ButtonSlot" type="Button" parent="ColorRect/Set 4/0"]
 margin_right = 128.0
 margin_bottom = 64.0
 custom_styles/hover = SubResource( 1 )
@@ -68,7 +68,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="Sprite" parent="ColorRect/0/0/ButtonSlot"]
+[node name="TextureRect" type="Sprite" parent="ColorRect/Set 4/0/ButtonSlot"]
 position = Vector2( 64, 32 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 3 )
@@ -100,3 +100,5 @@ scale = Vector2( 0.75, 0.75 )
 
 [node name="Node2D2" parent="Node2D" instance=ExtResource( 1 )]
 position = Vector2( 10.6667, 0 )
+
+[connection signal="pressed" from="ColorRect/Set 4/0/ButtonSlot" to="Node2D/Node2D2" method="_on_ButtonSlot_pressed" binds= [ Vector2( 0, 4 ) ]]
