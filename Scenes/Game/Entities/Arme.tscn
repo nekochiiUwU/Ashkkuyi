@@ -19,6 +19,8 @@ pixel_size = 0.05
 axis = 1
 texture = ExtResource( 2 )
 hframes = 8
+vframes = 5
+frame = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )

@@ -1,88 +1,125 @@
 class_name Player
 extends KinematicBody
 
-
-onready var _inventory = load("res://Scenes/Game/UI/Inventory.tscn").instance()
-onready var _preview = load("res://Scenes/Game/UI/Preview_item.tscn").instance()
-onready var _bullet = load("res://Scenes/Game/Entities/Player/Weapons/Bullets/0.tscn")
-
-onready var p = get_parent()
-onready var cursor = p.get_node("Cursor")
-onready var camera = p.get_node("Camera")
-onready var UI = camera.get_node("Canvas/UI")
-onready var weapon = get_node("Weapon")
-onready var visual = get_node("Visual")
-onready var hitbox = get_node("Collision")
-onready var camera_pos = get_node("CameraPos")
+onready var _inventory       = load("res://Scenes/Game/UI/Inventory.tscn").instance()
+onready var _preview         = load("res://Scenes/Game/UI/Preview_item.tscn").instance()
+onready var _bullet          = load("res://Scenes/Game/Entities/Player/Weapons/Bullets/0.tscn")
+onready var p                = get_parent()
+onready var cursor           = p.get_node("Cursor")
+onready var camera           = p.get_node("Camera")
+onready var UI               = camera.get_node("Canvas/UI")
+onready var weapon           = get_node("Weapon")
+onready var visual           = get_node("Visual")
+onready var hitbox           = get_node("Collision")
+onready var camera_pos       = get_node("CameraPos")
 onready var animation_player = get_node("Animation Player")
 
-var online = {
-	"Weapon": [],
-	"Hp": 1000,
-	"Shield": 500,
-	"Mana": 1000,
-	"Frame": 0,
-	"Position": Vector3(),
-	"Flip h": false
+var online:             Dictionary = {
+									  "Weapon": [],
+									  "Hp": 1000,
+									  "Shield": 500,
+									  "Mana": 1000,
+									  "Frame": 0,
+									  "Position": Vector3(),
+									  "Flip h": false
 }
 
-const GRAVITY    = -1000
-var jump_height  = 750
-var weight       = 50
-var gravity      = 0
-var speed        = 250
-var speedtick    = speed
-
-var data: Dictionary 
-var Name
-var hp = 1000.0
-var max_hp = 1000
-var shield = 500.0
-var max_shield = 500
-var mana = 100.0
-var max_mana = 100
-var active_set = 1
-var active_weapon = 0
-
-var l_click_pressed = false
-var r_click_pressed = false
-var jump            = false
-
-var cursor_pos = Vector3(20, -0.15, 20)
-var sensibility= 1000
-
-var cursor_type= 0
-
-var inventory_open = false
-var preview_open = false
-
-
-var animations = {
-	"Jump": false,
-	"Fall": false,
-	"Crouch": false,
-	"to_Crouch": false,
-	"Run": false,
+var animations:         Dictionary = {
+									  "Jump": false,
+									  "Fall": false,
+									  "Crouch": false,
+									  "to_Crouch": false,
+									  "Run": false
 }
 
-var colors: Dictionary = {
-	"Hairs": Color(0, 1, 1),
-	"Skin": Color(0, 1, 1),
-	"Shirt": Color(0, 1, 1),
-	"Pants": Color(0, 1, 1),
-	"Shoes": Color(0, 1, 1),
+var colors:             Dictionary = {
+									  "Hairs": Color(0, 1, 1),
+									  "Skin": Color(0, 1, 1),
+									  "Shirt": Color(0, 1, 1),
+									  "Pants": Color(0, 1, 1),
+									  "Shoes": Color(0, 1, 1)
 }
 
-var inventory = [[0, 0, 0, 0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0]]
-#var equiped = [Weapon.instance(), Weapon.instance(), Weapon.instance()]
+var stats:              Dictionary = {
+									  "Hp": 1000,
+									  "Shield": 1000,
+									  "Mana": 1000,
+									  "Speed": 250,
+									  "Aerial Swiftness": 140,
+									  "Luck": 1,
+									  "Vision": 1
+}
+var ranged_stats:       Dictionary = {
+									  "Damages": 70,
+									  "Firerate": 70,
+									  "Accuracy": 70,
+									  "Reload": 70,
+									  "Recoil": 70
+}
+var cac_stats:          Dictionary = {
+									  "Damages": 70,
+									  "Speed": 70,
+									  "Size": 70,
+									  "Range": 70,
+									  "Boldness": 70
+}
+var spell_stats:        Dictionary = {
+									  "Damages": 70,
+									  "Channel": 70,
+									  "Range": 70,
+									  "CDR": 70,
+									  "Manacost": 70
+}
+var mov_stats:          Dictionary = {
+									  "Range": 70,
+									  "Speed": 70,
+									  "Recovery": 70
+}
 
-var dir   : Vector3 = Vector3()
-var vector: Vector3 = Vector3(0, 0.01, 0)
-var rota  : Vector3 = Vector3()
+var data:               Dictionary
+
+const GRAVITY           = -1000
+var weight              = 50
+var gravity             = 0
+var jump_height         = 750
+
+var Name                = ""
+var current_hp          = 1000.0
+var current_shield      = 500.0
+var current_mana        = 100.0
+
+var inventory:    Array = [[0, 0, 0, 0, 0, 0], 
+						   [0, 0, 0], [0, 0, 0], [0, 0, 0], 
+						   [0]
+]
+
+var active_set          = 1
+var active_weapon       = 0
+
+var level               = 1
+var misc_points         = 0
+var spe_points          = 0
+
+var sensibility         = 1000
+
+var speedtick           = 250 + stats["Speed"]
+
+var l_click_pressed     = false
+var r_click_pressed     = false
+var jump                = false
+
+var inventory_open      = false
+var preview_open        = false
+var cursor_type         = 0
+var cursor_pos: Vector3 = Vector3(20, -0.15, 20)
+
+var dir   :     Vector3 = Vector3()
+var vector:     Vector3 = Vector3(0, 0.01, 0)
 
 
 func hide_body(body):
 	body.visible = false
+
 
 func show_body(body):
 	body.visible = true
@@ -107,9 +144,11 @@ func update_animations():
 
 
 func update():
-	UI.get_node("Health").rect_size.x = 12 + (float(hp) / max_hp) * 460
-	UI.get_node("Shield").rect_size.x = 12 + (float(shield) / max_shield) * 460
-	UI.get_node("Mana Font/Mana").material.set_shader_param("offset", -(float(mana) / max_mana) + 0.5)
+	UI.get_node("ActiveSet/"+str(active_weapon)+"/ColorRect").rect_size.y = 40*(weapon.reload_time_left/weapon.reload_time)
+	UI.get_node("Health").rect_size.x = 12 + (float(current_hp) / stats["Hp"]) * 460
+	UI.get_node("Shield").rect_size.x = 12 + (float(current_shield) / stats["Shield"]) * 460
+	UI.get_node("Mana Font/Mana").material.set_shader_param("offset", -(float(current_mana) / stats["Mana"]) + 0.5)
+
 
 func update_set():
 	for i in range(3):
@@ -118,27 +157,29 @@ func update_set():
 			UI.get_node("ActiveSet/" + str(i) + "/TextureRect").frame_coords = Vector2(inventory[active_set][i][0][1], inventory[active_set][i][0][0])
 		else:
 			UI.get_node("ActiveSet/" + str(i) + "/TextureRect").visible = false
-		
 	for i in range(3):
 		if inventory[(active_set)%3+1][i]:
 			UI.get_node("NextSet/" + str(i) + "/TextureRect").visible = true
 			UI.get_node("NextSet/" + str(i) + "/TextureRect").frame_coords = Vector2(inventory[(active_set)%3+1][i][0][1], inventory[(active_set)%3+1][i][0][0])
 		else:
 			UI.get_node("NextSet/" + str(i) + "/TextureRect").visible = false
-			
+	weapon.update_weapon()
+
+
 func move(delta):
-	if not is_on_floor():
-		dir /= 10
+	if dir:
+		if not is_on_floor():
+			vector += dir.normalized() * speedtick*(stats["Aerial Swiftness"]/70)
+		else:
+			vector += dir.normalized() * speedtick
 	if gravity:
 		vector += Vector3(0, gravity, 0)
-	if dir:
-		vector += dir.normalized() * speedtick
 	if vector:
 		vector = move_and_slide(vector * delta, Vector3.UP)
 	
 	if not is_on_floor():
 		if gravity > GRAVITY:
-			gravity += 0.05 * GRAVITY
+			gravity += (weight * 0.001) * GRAVITY
 		if vector.y < 0:
 			animations["Fall"] = true
 			animations["Jump"] = false
@@ -148,9 +189,9 @@ func move(delta):
 	else:
 		animations["Fall"] = false
 		animations["Jump"] = false
-		gravity = -50 #0.05 * GRAVITY
+		gravity = (weight * 0.001) * GRAVITY
 		if Input.is_action_just_pressed("jump"):
-			gravity = jump_height
+			gravity = jump_height * (1+(stats["Aerial Swiftness"]/100-1))
 	vector = Vector3()
 
 
@@ -164,20 +205,25 @@ func _input(event):
 			camera.get_node("RayCast").rotation_degrees.x, -10, 6)
 		camera.get_node("RayCast").rotation_degrees.y = clamp(
 			camera.get_node("RayCast").rotation_degrees.y, -14, 14)
+	
 	elif event is InputEventMouseButton:
-		if event.button_index == 4: 
-			active_weapon = (active_weapon - 1)%3
-			UI.get_node("ActiveSet/Select").rect_position.x = 40 - active_weapon*96
+		if event.button_index == 5: 
+			active_weapon = (active_weapon + 1)%3
+			print(active_weapon)
+			UI.get_node("ActiveSet/Select").rect_position.x = 40 + active_weapon*96
 			weapon.update_weapon()
-			
-		elif event.button_index == 5: 
+		elif event.button_index == 4: 
 			active_weapon = (active_weapon - 1)%3
-			UI.get_node("ActiveSet/Select").rect_position.x = 232 + active_weapon*96
+			if active_weapon < 0:
+				 active_weapon += 3
+			print(active_weapon)
+			UI.get_node("ActiveSet/Select").rect_position.x = 40 + active_weapon*96
 			weapon.update_weapon()
 
 
 func get_input():
 	dir = Vector3()
+	
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = !OS.window_fullscreen
 	if Input.is_action_just_pressed("mouse_lock"):
@@ -185,6 +231,7 @@ func get_input():
 			Input.set_mouse_mode(0)
 		else:
 			Input.set_mouse_mode(2)
+	
 	if Input.is_action_pressed("move_right"):
 		dir.z += 1
 		dir.x -= 1
@@ -202,23 +249,24 @@ func get_input():
 				if i.name != "Animation Player":
 					i.flip_h = true
 	if Input.is_action_pressed("move_down"):
-		dir.z -= 1
-		dir.x -= 1
+		dir.z            -= 1
+		dir.x            -= 1
 		animations["Run"] = true
 	if Input.is_action_pressed("move_up"):
-		dir.z += 1
-		dir.x += 1
+		dir.z            += 1
+		dir.x            += 1
 		animations["Run"] = true
+	
 	if Input.is_action_pressed("crouch"):
 		animations["to_Crouch"] = true
-		hitbox.shape.height = 0.45
-		hitbox.translation = Vector3(0, -0.55, 0)
-		speedtick /= 3
+		hitbox.shape.height     = 0.45
+		hitbox.translation      = Vector3(0, -0.55, 0)
+		speedtick              /= 3
 	else:
-		animations["Crouch"] = false
+		animations["Crouch"]    = false
 		animations["to_Crouch"] = false
-		hitbox.shape.height = 0.6
-		hitbox.translation = Vector3(0, -0.6, 0)
+		hitbox.shape.height     = 0.6
+		hitbox.translation      = Vector3(0, -0.6, 0)
 	
 	if Input.is_action_just_pressed("interact"):
 		if not preview_open:
@@ -237,6 +285,8 @@ func get_input():
 		else:
 			preview_open = false
 			camera.get_node("Canvas").remove_child(_preview)
+			weapon.update_weapon()
+			Input.set_mouse_mode(2)
 	
 	if Input.is_action_just_pressed("inventaire"):
 		if not inventory_open and not preview_open:
@@ -244,23 +294,21 @@ func get_input():
 			inventory_open = true
 			Input.set_mouse_mode(0)
 		else:
-			camera.get_node("Canvas").remove_child(_inventory)
-			camera.get_node("Canvas").remove_child(_preview)
-			inventory_open = false
-			preview_open = false
+			if inventory_open:
+				camera.get_node("Canvas").remove_child(_inventory)
+				inventory_open = false
+			if preview_open:
+				camera.get_node("Canvas").remove_child(_preview)
+				preview_open = false
 			update_set()
 			Input.set_mouse_mode(2)
 	
 	if Input.is_action_just_pressed("next_weapon"):
-		active_weapon = (active_weapon + 1)%3
-		
-	if Input.is_mouse_button_pressed(5):
-		active_weapon = (active_weapon - 1)%3
-		UI.get_node("ActiveSet/Select").position.x = 40 + active_weapon*196
-		print("pog")
-		
+		active_weapon += 1
+		active_weapon %= 3
 	if Input.is_action_just_pressed("next_set"):
-		active_set = (active_set)%3 + 1
+		active_set    %= 3 
+		active_set    += 1 
 		update_set()
 		
 	if Input.is_mouse_button_pressed(2):
@@ -269,74 +317,90 @@ func get_input():
 		r_click_pressed = false
 	
 	if r_click_pressed:
-		camera_pos.global_transform.origin = Vector3(
-			(translation.x*3 + cursor.translation.x)/4 -20, 16 + translation.y,
-			 (translation.z*3 + cursor.translation.z)/4 -20)
+		camera_pos.global_transform.origin  = translation
+		camera_pos.global_transform.origin += cursor.translation*stats["Vision"]
+		camera_pos.global_transform.origin /= stats["Vision"]+3
+		camera_pos.global_transform.origin += Vector3(-20, 16, -20)
 	else:
-		camera_pos.global_transform.origin = Vector3(translation.x-20, 
-		16 + translation.y, translation.z-20)
+		camera_pos.global_transform.origin  = translation
+		camera_pos.global_transform.origin += Vector3(-20, 16, -20)
 	
 	if Input.is_key_pressed(KEY_0):
 		var uwu = load("res://Scenes/Game/Entities/Arme.tscn").instance()
 		var spawn_pos = transform.origin
 		spawn_pos.y += 10
-		uwu.init(spawn_pos, 1, 1)
+		uwu.init(spawn_pos, level, stats["Luck"])
 		get_parent().get_parent().add_child(uwu)
-		
+	
+	if Input.is_key_pressed(KEY_9):
+		level += 1
+		print(level)
 
-func set_variables():
-	hp = online["Hp"]
-	shield = online["Shield"]
-	mana = online["Mana"]
-	for i in visual.get_children():
-		i.flip_h = online["Flip h"]
-		i.frame = online["Frame"]
-	translation = online["Position"]
-	if online["Weapon"]:
-		$Weapon.transform.basis.x = online["Weapon"][0]
-		$Weapon.special = online["Weapon"][1]
-		$Weapon.bullet_color = online["Weapon"][2]
+
+func cooldown(delta):
+	if current_mana < stats["Mana"]:
+		current_mana += delta
+		update()
+	
+	if current_shield < stats["Shield"]:
+		current_shield += delta * 10
+		update()
+
+
+func user_meta():
+	cursor.translation    = camera.get_node("RayCast").get_collision_point()
+	cursor.translation.y += 0.8
 
 
 func loot_arme(stats):
 	pass
 
 
+func set_variables():
+	current_hp                = online["Hp"]
+	current_shield            = online["Shield"]
+	current_mana              = online["Mana"]
+	for i in visual.get_children():
+		i.flip_h              = online["Flip h"]
+		i.frame               = online["Frame"]
+	translation               = online["Position"]
+	$Weapon.transform.basis.x = online["Weapon"][0]
+	$Weapon.special           = online["Weapon"][1]
+	$Weapon.bullet_color      = online["Weapon"][2]
+
+
 func send_variables():
-	online["Hp"] = hp
-	online["Shield"] = shield
-	online["Mana"] = mana
-	online["Frame"] = visual.get_child(0).frame
+	online["Hp"]       = current_hp
+	online["Shield"]   = current_shield
+	online["Mana"]     = current_mana
 	online["Position"] = translation
-	online["Weapon"] = []
-	for i in get_children():
-		if i.name == "Weapon":
-			online["Weapon"] = [i.transform.basis.x, i.special, i.bullet_color]
-	online["Flip h"] = visual.get_child(0).flip_h
+	online["Weapon"]   = []
+	online["Frame"]    = visual.get_child(0).frame
+	online["Flip h"]   = visual.get_child(0).flip_h
+	online["Weapon"]   = [weapon.transform.basis.x, {}, Color()]
 	rset_unreliable('online', online)
 
 
-remote func fire(bullet_name, color, speed, size, maxrange, orientation):
-	var bullet = _bullet.instance()
-	bullet.transform = $Weapon/Visual.get_global_transform()
-	bullet.transform.origin += Vector3(0.2, 0, 0).rotated(Vector3.UP, $Weapon.rotation.y)
-	bullet.speed = speed
-	bullet.size = size
-	bullet.maxrange = maxrange
+remote func fire(color, Speed, size, maxrange, orientation):
+	var bullet                         = _bullet.instance()
+	bullet.transform                   = $Weapon/Visual.get_global_transform()
+	bullet.transform.origin           += Vector3(0.3, 0, 0).rotated(Vector3.UP, $Weapon.rotation.y)
+	bullet.speed                       = Speed
+	bullet.size                        = size
+	bullet.maxrange                    = maxrange
 	bullet.init(orientation, color)
-	bullet.name = bullet_name
 	bullet.get_node("Area").monitoring = false
 	get_parent().add_child(bullet)
 
 
 remote func hurt(damage, initiating, special = {}):
-	if shield:
-		shield -= damage
-		if shield < 0:
-			hp += shield
-			shield = 0
+	if current_shield:
+		current_shield    -= damage
+		if current_shield < 0:
+			current_hp    += current_shield
+			current_shield = 0
 	else:
-		hp -= damage
+		current_hp        -= damage
 	update()
 
 
@@ -350,7 +414,7 @@ func init(d, is_slave):
 		d["Position"] = Vector3(d["Position"][0], d["Position"][1], d["Position"][2])
 	
 	for i in visual.get_children():
-		i.texture = load("res://Assets/Textures/Entities/Player/Parts/"+i.name+"/"+d[i.name][0]+".png")
+		i.texture  = load("res://Assets/Textures/Entities/Player/Parts/"+i.name+"/"+d[i.name][0]+".png")
 		i.modulate = Color(data[i.name][1])
 	
 	if not is_slave:
@@ -376,17 +440,15 @@ func _process(delta):
 		Network.update_data(int(p.name), data)
 
 
+func local_pre_process():
+	speedtick = 250 + stats["Speed"]
+
+
 func local_process(delta):
-	if mana < max_mana:
-		mana += delta
-		update()
-	if shield < max_shield:
-		shield += delta * 10
-		update()
-	speedtick = speed
+	local_pre_process()
+	cooldown(delta)
 	get_input()
-	cursor.translation = camera.get_node("RayCast").get_collision_point()
-	cursor.translation.y += 0.8
+	user_meta()
 	update_animations()
 
 

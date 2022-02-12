@@ -17,7 +17,8 @@ shaded = true
 double_sided = false
 texture = ExtResource( 1 )
 hframes = 8
-frame = 6
+vframes = 5
+frame = 2
 
 [node name="Visual2" type="Sprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0, 0 )

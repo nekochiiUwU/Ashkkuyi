@@ -9,8 +9,8 @@ var damage
 
 
 func init(_spread, _color, _damage = 0):#, _special = {}):
-	rotate_y(_spread.y)
-	rotate_x(_spread.x)
+	#rotate_y((_spread.y)/360*2*PI)
+	rotate_x((_spread.x)/360*2*PI)
 	damage = _damage
 	velocity = float(velocity)/1000
 	get_node("Timer").wait_time = max_range/velocity
@@ -21,9 +21,10 @@ func init(_spread, _color, _damage = 0):#, _special = {}):
 
 
 func hit(body):
-	if body is Player:
+	if body is Player and body != get_node("../Player"):
 		body.hurt(damage, true)#, _special = {}):
-	queue_free()
+	if body != get_node("../Player"):
+		queue_free()
 		#:D
 
 

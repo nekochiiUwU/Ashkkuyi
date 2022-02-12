@@ -184,16 +184,16 @@ func loot_weapon(level, luck):
 	if which:
 		damages       = round(rng.randfn(60 * pow(level, 0.5), luck/60 * 60)*100)/100
 		type          = ["FA"]
-		manacost      = round(rng.randfn(30 * pow(level, 0.5), luck/60 * 30)*100)/100
+		manacost      = round(rng.randfn(20 / pow(level, 0.5), luck/60 * 30)*100)/100
 		firerate      = round(rng.randfn(6 * pow(level, 0.5), luck/60 * 6)*100)/100
-		magazine_size = round(rng.randfn(20 * pow(level, 0.5), luck/60 * 20)*100)/100
+		magazine_size = round(rng.randfn(20 * pow(level, 0.5), luck/60 * 20))
 		current_ammo  = magazine_size
-		reload_time   = round(rng.randfn(4 * pow(level, 0.5), luck/60 * 4)*100)/100
-		accuracy      = round(rng.randfn(5 * pow(level, 0.5), luck/60 * 5)*100)/100
+		reload_time   = round(rng.randfn(4 / pow(level, 0.5), luck/60 * 4)*100)/100
+		accuracy      = round(rng.randfn(5 / pow(level, 0.5), luck/60 * 5)*100)/100
 		velocity      = round(rng.randfn(400 * pow(level, 0.5), luck/60 * 400)*100)/100
 		calibre       = round(rng.randfn(1 * pow(level, 0.5), luck/60 * 1)*100)/100
-		recoil        = round(rng.randfn(1 * pow(level, 0.5), luck/60 * 1)*100)/100
-		recoil_recover= round(rng.randfn(60 * pow(level, 0.5), luck/60 * 60)*100)/100
+		recoil        = round(rng.randfn(1 / pow(level, 0.5), luck/60 * 1)*100)/100
+		recoil_recover= round(rng.randfn(60 / pow(level, 0.5), luck/60 * 60)*100)/100
 		max_range     = round(rng.randfn(300 * pow(level, 0.5), luck/60 * 300)*100)/100
 		var stats = [damages, type, manacost]
 		print(stats)
@@ -206,6 +206,7 @@ func loot_weapon(level, luck):
 
 func loot_cac(level, luck):
 	pass
+	
 func loot_spell(level, luck):
 	pass
 func loot_mov(level, luck):
