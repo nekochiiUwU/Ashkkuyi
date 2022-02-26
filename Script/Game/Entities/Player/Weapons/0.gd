@@ -62,20 +62,21 @@ var bullet_color = Color(1, 1, 1)
 
 func update_weapon():
 	s = player.inventory[player.active_set][player.active_weapon]
+	print(s)
 	if s:
 		if s[0][0] == 0:
 			arme = s[0]
-			damages = s[1]*(player.ranged_stats["Damages"]/100)
+			damages = s[1]
 			type = s[2]
 			manacost = s[3]
-			firerate = s[4]*(((100-player.ranged_stats["Firerate"])+100)/100)
+			firerate = s[4]
 			magazine_size = s[5]
 			current_ammo = s[6]
-			reload_time = s[7]*(((100-player.ranged_stats["Accuracy"])+100)/100)
-			accuracy = s[8]*(((100-player.ranged_stats["Accuracy"])+100)/100)
+			reload_time = s[7]
+			accuracy = s[8]
 			velocity = s[9]
 			calibre = s[10]
-			recoil = s[11]*(((100-player.ranged_stats["Accuracy"])+100)/100)
+			recoil = s[11]
 			recoil_recover = s[12]
 			max_range = s[13]
 			
@@ -95,7 +96,7 @@ func _process(delta):
 			#rotate_z(rotateX)
 			pass
 			
-		if arme:
+		if arme or arme == Vector2(0, 0):
 			if Input.is_action_just_pressed("reload") and current_ammo != magazine_size and not reload_time_left:
 				if not player.current_mana < manacost:
 					player.current_mana -= manacost

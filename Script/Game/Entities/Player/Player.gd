@@ -41,39 +41,35 @@ var colors:             Dictionary = {
 }
 
 var stats:              Dictionary = {
-									  "Hp": 1000,
-									  "Shield": 1000,
-									  "Mana": 1000,
-									  "Speed": 250,
-									  "Aerial Swiftness": 140,
-									  "Luck": 1,
-									  "Vision": 1
-}
-var ranged_stats:       Dictionary = {
-									  "Damages": 70,
-									  "Firerate": 70,
-									  "Accuracy": 70,
-									  "Reload": 70,
-									  "Recoil": 70
-}
-var cac_stats:          Dictionary = {
-									  "Damages": 70,
-									  "Speed": 70,
-									  "Size": 70,
-									  "Range": 70,
-									  "Boldness": 70
-}
-var spell_stats:        Dictionary = {
-									  "Damages": 70,
-									  "Channel": 70,
-									  "Range": 70,
-									  "CDR": 70,
-									  "Manacost": 70
-}
-var mov_stats:          Dictionary = {
-									  "Range": 70,
-									  "Speed": 70,
-									  "Recovery": 70
+									  "Hp": [1000.0, 100.0, 5.0, 1],
+									  "Shield": [1000.0, 100.0, 5.0, 1],
+									  "Mana": [1000.0, 100.0, 5.0, 1],
+									  "Speed": [250.0, 100.0, 5.0, 1],
+									  "Aerial Swiftness": [100, 100.0, 5.0, 1],
+									  "Luck": [1.0, 100.0, 5.0, 1],
+									  "Vision": [1.0, 100.0, 5.0, 1],
+
+									  "Ranged damages": [100.0, 70.0, 5.0, 1],
+									  "Firerate": [100.0, 70.0, 5.0, 1],
+									  "Accuracy": [100.0, 70.0, 5.0, 1],
+									  "Reload": [100.0, 70.0, 5.0, 1],
+									  "Recoil": [100.0, 70.0, 5.0, 1],
+
+									  "Cac damages": [100.0, 70.0, 5.0, 1],
+									  "Travel time": [100.0, 70.0, 5.0, 1],
+									  "Size": [100.0, 70.0, 5.0, 1],
+									  "Length": [100.0, 70.0, 5.0, 1],
+									  "Boldness": [100.0, 70.0, 5.0, 1],
+
+									  "Spell damages": [100.0, 70.0, 5.0, 1],
+									  "Channel": [100.0, 70.0, 5.0, 1],
+									  "Range": [100.0, 70.0, 5.0, 1],
+									  "CDR": [100.0, 70.0, 5.0, 1],
+									  "Manacost": [100.0, 70.0, 5.0, 1],
+
+									  "Cringe percent": [100.0, 70.0, 5.0, 1],
+									  "Dexterity": [100.0, 70.0, 5.0, 1],
+									  "Recovery": [100.0, 70.0, 5.0, 1],
 }
 
 var data:               Dictionary
@@ -97,12 +93,12 @@ var active_set          = 1
 var active_weapon       = 0
 
 var level               = 1
-var misc_points         = 0
+var misc_points         = 50
 var spe_points          = 0
 
 var sensibility         = 1000
 
-var speedtick           = 250 + stats["Speed"]
+var speedtick           = 250 + stats["Speed"][0]*(stats["Speed"][1]/100)
 
 var l_click_pressed     = false
 var r_click_pressed     = false
@@ -116,6 +112,8 @@ var cursor_pos: Vector3 = Vector3(20, -0.15, 20)
 var dir   :     Vector3 = Vector3()
 var vector:     Vector3 = Vector3(0, 0.01, 0)
 
+func stat(stat):
+	return stats[str(stat)][0] * (stats[str(stat)][1]/100)
 
 func hide_body(body):
 	body.visible = false
@@ -145,9 +143,9 @@ func update_animations():
 
 func update():
 	UI.get_node("ActiveSet/"+str(active_weapon)+"/ColorRect").rect_size.y = 40*(weapon.reload_time_left/weapon.reload_time)
-	UI.get_node("Health").rect_size.x = 12 + (float(current_hp) / stats["Hp"]) * 460
-	UI.get_node("Shield").rect_size.x = 12 + (float(current_shield) / stats["Shield"]) * 460
-	UI.get_node("Mana Font/Mana").material.set_shader_param("offset", -(float(current_mana) / stats["Mana"]) + 0.5)
+	UI.get_node("Health").rect_size.x = 12 + (float(current_hp) / stat("Hp")) * 460
+	UI.get_node("Shield").rect_size.x = 12 + (float(current_shield) / stat("Shield")) * 460
+	UI.get_node("Mana Font/Mana").material.set_shader_param("offset", -(float(current_mana) / stat("Mana")) + 0.5)
 
 
 func update_set():
@@ -169,7 +167,8 @@ func update_set():
 func move(delta):
 	if dir:
 		if not is_on_floor():
-			vector += dir.normalized() * speedtick*(stats["Aerial Swiftness"]/70)
+			print(stat("Aerial Swiftness"))
+			vector += dir.normalized() * speedtick * (stat("Aerial Swiftness")/100)
 		else:
 			vector += dir.normalized() * speedtick
 	if gravity:
@@ -191,7 +190,7 @@ func move(delta):
 		animations["Jump"] = false
 		gravity = (weight * 0.001) * GRAVITY
 		if Input.is_action_just_pressed("jump"):
-			gravity = jump_height * (1+(stats["Aerial Swiftness"]/100-1))
+			gravity = jump_height * (1+(stat("Aerial Swiftness")/100-1))
 	vector = Vector3()
 
 
@@ -318,8 +317,8 @@ func get_input():
 	
 	if r_click_pressed:
 		camera_pos.global_transform.origin  = translation
-		camera_pos.global_transform.origin += cursor.translation*stats["Vision"]
-		camera_pos.global_transform.origin /= stats["Vision"]+3
+		camera_pos.global_transform.origin += cursor.translation*stat("Vision")
+		camera_pos.global_transform.origin /= stat("Vision")+1
 		camera_pos.global_transform.origin += Vector3(-20, 16, -20)
 	else:
 		camera_pos.global_transform.origin  = translation
@@ -329,20 +328,22 @@ func get_input():
 		var uwu = load("res://Scenes/Game/Entities/Arme.tscn").instance()
 		var spawn_pos = transform.origin
 		spawn_pos.y += 10
-		uwu.init(spawn_pos, level, stats["Luck"])
+		uwu.init(spawn_pos, level, stat("Luck"))
 		get_parent().get_parent().add_child(uwu)
 	
 	if Input.is_key_pressed(KEY_9):
 		level += 1
+		misc_points += 2
+		spe_points += 2
 		print(level)
 
 
 func cooldown(delta):
-	if current_mana < stats["Mana"]:
+	if current_mana < stat("Mana"):
 		current_mana += delta
 		update()
 	
-	if current_shield < stats["Shield"]:
+	if current_shield < stat("Shield"):
 		current_shield += delta * 10
 		update()
 
@@ -441,7 +442,7 @@ func _process(delta):
 
 
 func local_pre_process():
-	speedtick = 250 + stats["Speed"]
+	speedtick = 250 + stat("Speed")
 
 
 func local_process(delta):

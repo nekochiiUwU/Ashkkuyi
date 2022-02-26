@@ -171,6 +171,10 @@ func import_stats(s):
 		max_range = s[13]
 		update()
 
+func scaling_function(level):
+	return pow(2, level/20)
+
+
 func loot_weapon(level, luck):
 	level = float(level)
 	luck = float(luck)
@@ -178,28 +182,27 @@ func loot_weapon(level, luck):
 	rng.randomize()
 	arme = Vector2(0, rng.randi_range(0, 6))
 	var which = liste_armes_names[arme.y]
-	print(arme)
 	get_node("Sprite3D").frame_coords = Vector2(arme.y, arme.x)
 	#if random == "FA":
 	if which:
-		damages       = round(rng.randfn(60 * pow(level, 0.5), luck/60 * 60)*100)/100
+		damages       = round(rng.randfn(60    * scaling_function(level), luck/60 * 60)*100)/100
 		type          = ["FA"]
-		manacost      = round(rng.randfn(20 / pow(level, 0.5), luck/60 * 30)*100)/100
-		firerate      = round(rng.randfn(6 * pow(level, 0.5), luck/60 * 6)*100)/100
-		magazine_size = round(rng.randfn(20 * pow(level, 0.5), luck/60 * 20))
+		manacost      = round(rng.randfn(20    / scaling_function(level), luck/60 * 30)*100)/100
+		firerate      = round(rng.randfn(6     * scaling_function(level), luck/60 * 6)*100)/100
+		magazine_size = round(rng.randfn(20    * scaling_function(level), luck/60 * 20))
 		current_ammo  = magazine_size
-		reload_time   = round(rng.randfn(4 / pow(level, 0.5), luck/60 * 4)*100)/100
-		accuracy      = round(rng.randfn(5 / pow(level, 0.5), luck/60 * 5)*100)/100
-		velocity      = round(rng.randfn(400 * pow(level, 0.5), luck/60 * 400)*100)/100
-		calibre       = round(rng.randfn(1 * pow(level, 0.5), luck/60 * 1)*100)/100
-		recoil        = round(rng.randfn(1 / pow(level, 0.5), luck/60 * 1)*100)/100
-		recoil_recover= round(rng.randfn(60 / pow(level, 0.5), luck/60 * 60)*100)/100
-		max_range     = round(rng.randfn(300 * pow(level, 0.5), luck/60 * 300)*100)/100
+		reload_time   = round(rng.randfn(4     / scaling_function(level), luck/60 * 4)*100)/100
+		accuracy      = round(rng.randfn(5     / scaling_function(level), luck/60 * 5)*100)/100
+		velocity      = round(rng.randfn(400   * scaling_function(level), luck/60 * 400)*100)/100
+		calibre       = round(rng.randfn(1     * scaling_function(level), luck/60 * 1)*100)/100
+		recoil        = round(rng.randfn(1     / scaling_function(level), luck/60 * 1)*100)/100
+		recoil_recover= round(rng.randfn(60    / scaling_function(level), luck/60 * 60)*100)/100
+		max_range     = round(rng.randfn(300   * scaling_function(level), luck/60 * 300)*100)/100
 		var stats = [damages, type, manacost]
 		print(stats)
 		
-	elif liste_armes_names[which] == "LMG":
-		pass
+	#elif liste_armes_names[which] == "LMG":
+		#pass
 	#lsite export
 	export_stats()
 

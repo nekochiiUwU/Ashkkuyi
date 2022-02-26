@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Script/Game/UI/Asset/Statistic.gd" type="Script" id=1]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 10.0
 bg_color = Color( 0.12549, 0.0627451, 0.0313726, 1 )
 border_width_left = 2
@@ -15,7 +15,7 @@ corner_radius_bottom_right = 5
 corner_detail = 1
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=2]
 content_margin_left = 10.0
 bg_color = Color( 0.0627451, 0.0627451, 0.0627451, 1 )
 border_width_left = 2
@@ -28,9 +28,9 @@ corner_radius_bottom_right = 5
 corner_detail = 1
 anti_aliasing = false
 
-[sub_resource type="StyleBoxEmpty" id=2]
+[sub_resource type="StyleBoxEmpty" id=3]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=4]
 content_margin_left = 10.0
 bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
 border_width_left = 2
@@ -43,35 +43,35 @@ corner_radius_bottom_right = 5
 corner_detail = 1
 anti_aliasing = false
 
-[node name="Hp" type="RichTextLabel"]
+[node name="Name" type="RichTextLabel"]
 margin_top = 24.0
 margin_right = 304.0
 margin_bottom = 40.0
+text = "aerial swiftness"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Upgrade" type="Button" parent="."]
-margin_left = 64.0
-margin_right = 544.0
+margin_left = 120.0
+margin_right = 148.0
 margin_bottom = 32.0
 rect_scale = Vector2( 0.5, 0.5 )
-custom_styles/hover = SubResource( 3 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 2 )
-custom_styles/normal = SubResource( 1 )
-text = "Upgrade"
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+text = "+"
 align = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Preview" type="RichTextLabel" parent="Upgrade"]
-margin_left = 48.0
-margin_right = 260.0
+[node name="Preview" type="RichTextLabel" parent="."]
+margin_left = 135.0
+margin_right = 334.0
 margin_bottom = 16.0
-rect_scale = Vector2( 2, 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

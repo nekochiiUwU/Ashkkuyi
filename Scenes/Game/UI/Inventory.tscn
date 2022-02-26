@@ -5,35 +5,35 @@
 [ext_resource path="res://Assets/Ressources/Fonts/Retro Gaming.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Script/Game/UI/Inventory.gd" type="Script" id=4]
 
-[sub_resource type="StyleBoxEmpty" id=8]
+[sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="StyleBoxLine" id=9]
+[sub_resource type="StyleBoxLine" id=2]
 color = Color( 1, 0.992157, 0, 1 )
 thickness = 5
 
-[sub_resource type="StyleBoxEmpty" id=10]
+[sub_resource type="StyleBoxEmpty" id=3]
 
-[sub_resource type="StyleBoxEmpty" id=11]
+[sub_resource type="StyleBoxEmpty" id=4]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="DynamicFont" id=6]
 size = 32
 outline_size = 2
 outline_color = Color( 0, 0, 0, 0.25098 )
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxEmpty" id=2]
+[sub_resource type="StyleBoxEmpty" id=7]
 
-[sub_resource type="StyleBoxEmpty" id=5]
-
-[sub_resource type="StyleBoxLine" id=4]
+[sub_resource type="StyleBoxLine" id=8]
 color = Color( 1, 0.992157, 0, 1 )
 thickness = 5
 
-[sub_resource type="StyleBoxEmpty" id=6]
+[sub_resource type="StyleBoxEmpty" id=9]
 
-[sub_resource type="StyleBoxEmpty" id=7]
+[sub_resource type="StyleBoxEmpty" id=10]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=11]
 outline_size = 2
 outline_color = Color( 0, 0, 0, 0.25098 )
 font_data = ExtResource( 3 )
@@ -74,10 +74,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Preview Focused"]
 margin_right = 464.0
 margin_bottom = 112.0
-custom_styles/hover = SubResource( 8 )
-custom_styles/pressed = SubResource( 9 )
-custom_styles/focus = SubResource( 10 )
-custom_styles/normal = SubResource( 11 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -115,10 +115,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Preview Selected"]
 margin_right = 400.0
 margin_bottom = 112.0
-custom_styles/hover = SubResource( 8 )
-custom_styles/pressed = SubResource( 9 )
-custom_styles/focus = SubResource( 10 )
-custom_styles/normal = SubResource( 11 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -203,8 +203,8 @@ texture = ExtResource( 2 )
 [node name="Button" type="Button" parent="Background/Set 1"]
 margin_right = 40.0
 margin_bottom = 64.0
-custom_fonts/font = SubResource( 1 )
-custom_styles/focus = SubResource( 2 )
+custom_styles/focus = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "1"
 flat = true
 __meta__ = {
@@ -223,10 +223,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 1/0"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -252,10 +252,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 1/1"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -279,10 +279,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 1/2"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -313,8 +313,8 @@ texture = ExtResource( 2 )
 [node name="Button" type="Button" parent="Background/Set 2"]
 margin_right = 40.0
 margin_bottom = 64.0
-custom_fonts/font = SubResource( 1 )
-custom_styles/focus = SubResource( 2 )
+custom_styles/focus = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "2"
 flat = true
 __meta__ = {
@@ -333,10 +333,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 2/0"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -360,10 +360,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 2/1"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -387,10 +387,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 2/2"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -430,10 +430,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 3/0"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -457,10 +457,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 3/1"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -484,10 +484,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 3/2"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -502,8 +502,8 @@ hframes = 7
 [node name="Button" type="Button" parent="Background/Set 3"]
 margin_right = 40.0
 margin_bottom = 64.0
-custom_fonts/font = SubResource( 1 )
-custom_styles/focus = SubResource( 2 )
+custom_styles/focus = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "3"
 flat = true
 __meta__ = {
@@ -525,8 +525,8 @@ __meta__ = {
 [node name="Button" type="Button" parent="Background/Set 0"]
 margin_right = 120.0
 margin_bottom = 64.0
-custom_fonts/font = SubResource( 3 )
-custom_styles/focus = SubResource( 2 )
+custom_styles/focus = SubResource( 5 )
+custom_fonts/font = SubResource( 11 )
 text = "Inventory"
 flat = true
 __meta__ = {
@@ -545,10 +545,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 0/0"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -572,10 +572,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 0/1"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -599,10 +599,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 0/2"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -626,10 +626,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 0/3"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -653,10 +653,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 0/4"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -680,10 +680,10 @@ __meta__ = {
 [node name="ButtonSlot" type="Button" parent="Background/Set 0/5"]
 margin_right = 128.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 toggle_mode = true
 __meta__ = {
 "_edit_use_anchors_": false
